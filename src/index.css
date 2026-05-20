@@ -1,0 +1,18 @@
+/* 1. Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* 2. Import Tailwind */
+@import "tailwindcss";
+
+/* 3. My Custom Theme */
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-deep-navy: #223A5E;
+  --color-glass-white: rgba(255, 255, 255, 0.25);
+  --color-mint-green: #59C095;
+  --color-neon-mint: #2FFFA8;
+  --color-glass-slate: rgba(177, 197, 211, 0.25);
+  --color-royal-blue: #144B9F;
+  --color-hover-navy: #114AA0;
+  --color-hover-mint: #4BEBA8;
+}
