@@ -15,7 +15,7 @@ export default function Home() {
       <section
         className="relative w-full bg-cover bg-center bg-no-repeat rounded-b-[3rem] overflow-hidden flex flex-col"
         style={{
-          backgroundImage: "url('../../public/box-filler.png')",
+          backgroundImage: "url('/box-filler.png')",
           minHeight: "40vh",
         }}
       >
