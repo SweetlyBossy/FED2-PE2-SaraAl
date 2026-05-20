@@ -1,9 +1,9 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './pages/HomePage';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import VenuesPage from './pages/VenuesPage';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/HomePage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import VenuesPage from "./pages/VenuesPage";
 //import SpecificVenuePage from './pages/SpecificVenuePage';
 
 export default function App() {
