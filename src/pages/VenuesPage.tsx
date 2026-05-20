@@ -336,7 +336,7 @@ const VenuesPage: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {currentVenues.map((venue) => (
                   <Link
-                    to={`/venue/${venue.id}`}
+                    to={`/venues/${venue.id}`}
                     key={venue.id}
                     className="bg-deep-navy/25 border border-white/10 rounded-lg p-4 flex flex-col backdrop-blur-sm hover:bg-deep-navy/35 transition-all duration-300 shadow-lg"
                   >

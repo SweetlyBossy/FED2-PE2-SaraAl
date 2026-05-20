@@ -4,7 +4,7 @@ import Home from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VenuesPage from "./pages/VenuesPage";
-//import SpecificVenuePage from './pages/SpecificVenuePage';
+import SpecificVenuePage from './pages/SpecificVenuePage';
 
 export default function App() {
   return (
@@ -17,7 +17,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/venues" element={<VenuesPage />} />
-            {/* <Route path="/venues/:id" element={<SpecificVenuePage />} /> */}
+            <Route path="/venues/:id" element={<SpecificVenuePage />} />
           </Routes>
         </main>
       </div>
