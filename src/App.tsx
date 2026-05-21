@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VenuesPage from "./pages/VenuesPage";
 import SpecificVenuePage from './pages/SpecificVenuePage';
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/venues" element={<VenuesPage />} />
             <Route path="/venues/:id" element={<SpecificVenuePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </main>
       </div>

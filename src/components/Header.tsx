@@ -40,7 +40,7 @@ export default function Header() {
     // Use 'fixed' and 'z-50' to make sure the header always stays at the top of the screen,
     // floating above the content as the user scrolls.
     <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 transition-all">
-      <nav className="flex items-center justify-between px-6 max-w-7xl mx-auto w-full py-4">
+      <nav className="flex items-center justify-between px-6 max-w-7xl mx-auto w-full">
         {/* Logo Section */}
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Nordic Stay Logo" className="w-40 h-auto" />
