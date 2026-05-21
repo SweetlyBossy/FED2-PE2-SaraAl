@@ -123,7 +123,7 @@ export default function Register() {
   };
   return (
     // Background setup: Dark gradient matching the Nordic Stay theme with padding and font styling. We use Tailwind CSS utility classes to create a full-screen background with a gradient that transitions from dark navy to a blue shade and back to dark navy. We also add padding around the content and set the font to 'Inter' for a clean, modern look that fits the overall design of the app.
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-[#144B9F] to-slate-900 p-4 font-inter">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-royal-blue` to-slate-900 p-4 font-inter">
       {/* Glassmorphism Card Container */}
       <div className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
         <div className="text-center mb-8">
@@ -159,7 +159,7 @@ export default function Register() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your name"
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.name && (
               <p className="mt-1 text-xs text-red-400">{errors.name}</p>
@@ -181,7 +181,7 @@ export default function Register() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Example@stud.noroff.no"
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.email && (
               <p className="mt-1 text-xs text-red-400">{errors.email}</p>
@@ -203,7 +203,7 @@ export default function Register() {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.password && (
               <p className="mt-1 text-xs text-red-400">{errors.password}</p>
@@ -225,7 +225,7 @@ export default function Register() {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="••••••••"
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.confirmPassword && (
               <p className="mt-1 text-xs text-red-400">
@@ -239,7 +239,7 @@ export default function Register() {
             type="submit"
             variant="action"
             disabled={isLoading}
-            className="w-full mt-6 flex justify-center items-center shadow-lg shadow-[#59C095]/20 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full mt-6 flex justify-center items-center shadow-lg shadow-mint-green/20 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <svg
@@ -273,7 +273,7 @@ export default function Register() {
           Already have an account?{" "}
           <Link
             to="/login"
-            className="text-[#59C095] hover:text-white font-semibold transition-colors"
+            className="text-mint-green hover:text-white font-semibold transition-colors"
           >
             Log In
           </Link>
