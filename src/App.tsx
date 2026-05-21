@@ -7,6 +7,7 @@ import VenuesPage from "./pages/VenuesPage";
 import SpecificVenuePage from './pages/SpecificVenuePage';
 import ProfilePage from "./pages/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
+import BookingConfirmation from "./pages/BookingConfirmation";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/venues/:id" element={<SpecificVenuePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/booking-confirmation" element={<BookingConfirmation />} />
           </Routes>
         </main>
       </div>
