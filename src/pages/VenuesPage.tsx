@@ -1,3 +1,4 @@
+// This page is responsible for displaying a list of venues with advanced search and filtering capabilities, along with pagination for better user experience. The UI is designed to be visually appealing and user-friendly, with a focus on performance and accessibility. The code is structured to be maintainable and scalable for future enhancements.
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
@@ -9,11 +10,11 @@ const VenuesPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Pagination State - showing 25 venues per page for better performance and user experience
+  // Pagination State - showing 25 venues per page for better performance and user experience. This allows users to navigate through the list of venues without being overwhelmed by too much information at once, and it also improves the loading times by only rendering a subset of venues at a time.
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const ITEMS_PER_PAGE = 25;
+  const ITEMS_PER_PAGE = 30; // Adjust this number based on how many venues you want to show per page
 
-  // Search and Filter States - allowing users to dynamically search by name and apply multiple filters simultaneously
+  // Search and Filter States - allowing users to dynamically search by name and apply multiple filters simultaneously. The filters include price range, guest capacity, rating, amenities, and location (country and city). This provides a comprehensive way for users to find venues that best match their preferences and needs.
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const [filters, setFilters] = useState<FilterState>({
@@ -35,7 +36,7 @@ const VenuesPage: React.FC = () => {
       // Using environment variables for API configuration to keep sensitive information secure and allow for easy configuration across different environments (development, staging, production).
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const apiKey = import.meta.env.VITE_API_KEY;
-
+      // The API call is made to fetch the list of venues, with appropriate headers for authentication and content type. We handle the response by checking if it's ok, and if not, we throw an error to be caught in our catch block. This ensures that we can provide feedback to the user if something goes wrong during the data fetching process.
       try {
         setIsLoading(true);
         const response = await fetch(
@@ -95,7 +96,7 @@ const VenuesPage: React.FC = () => {
         (venue.location?.city || "")
           .toLowerCase()
           .includes(filters.city.toLowerCase());
-
+      // The venue must meet all criteria to be included in the final filtered results. This ensures that users see only the venues that match all of their specified filters, providing a more relevant and personalized experience. 
       return (
         meetsPrice &&
         meetsGuests &&
@@ -131,14 +132,14 @@ const VenuesPage: React.FC = () => {
             ? Number(value)
             : value,
     }));
-    // Reset to the first page whenever filters change to ensure users see the most relevant results immediately.
+    // Reset to the first page whenever filters change to ensure users see the most relevant results immediately. This prevents confusion that could arise if they were on a later page that no longer exists after applying new filters.
     setCurrentPage(1);
   };
 
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-fixed relative"
-      style={{ backgroundImage: "url('/venues-bg.jpg')" }}
+      style={{ backgroundImage: "url('/box-filler.png')" }}
     >
       <div className="absolute inset-0 bg-deep-navy/60 z-0 pointer-events-none"></div>
 
