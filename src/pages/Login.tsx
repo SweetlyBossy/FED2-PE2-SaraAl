@@ -69,7 +69,7 @@ export default function Login() {
 
   return (
     // Background setup matching the Register page exactly
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-[#144B9F] to-slate-900 p-4 font-inter">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-royal-blue to-slate-900 p-4 font-inter">
       {/* Glassmorphism Card Container */}
       <section className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center">
         <div className="mb-8">
@@ -99,7 +99,7 @@ export default function Login() {
               placeholder="Example@stud.noroff.no"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
               required
             />
           </div>
@@ -111,7 +111,7 @@ export default function Login() {
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-[#59C095] focus:ring-1 focus:ring-[#59C095] transition-colors"
+              className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
               required
             />
           </div>
@@ -155,7 +155,7 @@ export default function Login() {
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="text-[#59C095] hover:text-white font-semibold transition-colors"
+            className="text-mint-green hover:text-white font-semibold transition-colors"
           >
             Sign up
           </Link>

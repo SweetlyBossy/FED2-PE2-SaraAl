@@ -96,6 +96,7 @@ const SpecificVenuePage: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 py-12">
       <Link
         to="/venues"
+        aria-label="Go back to the list of venues"
         className="text-mint-green hover:text-white transition-colors flex items-center gap-2 mb-8"
       >
         &larr; Back to Venues
@@ -145,12 +146,17 @@ const SpecificVenuePage: React.FC = () => {
           <h3 className="text-xl font-bold text-white mb-4">Book this Venue</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col">
-              <label className="text-xs text-white/60 mb-1">
+              <label
+                htmlFor="checkInDate"
+                className="text-xs text-white/60 mb-1"
+              >
                 Check-in Date
               </label>
               <input
+                id="checkInDate"
                 type="date"
                 required
+                aria-label="Select your check-in date"
                 onChange={(e) =>
                   setBookingData({ ...bookingData, dateFrom: e.target.value })
                 }
@@ -159,12 +165,17 @@ const SpecificVenuePage: React.FC = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="text-xs text-white/60 mb-1">
+              <label
+                htmlFor="checkOutDate"
+                className="text-xs text-white/60 mb-1"
+              >
                 Check-out Date
               </label>
               <input
+                id="checkOutDate"
                 type="date"
                 required
+                aria-label="Select your check-out date"
                 onChange={(e) =>
                   setBookingData({ ...bookingData, dateTo: e.target.value })
                 }
@@ -173,15 +184,20 @@ const SpecificVenuePage: React.FC = () => {
             </div>
 
             <div className="flex flex-col">
-              <label className="text-xs text-white/60 mb-1">
+              <label
+                htmlFor="guestCount"
+                className="text-xs text-white/60 mb-1"
+              >
                 Number of Guests
               </label>
               <input
+                id="guestCount"
                 type="number"
                 min="1"
                 max={venue.maxGuests}
                 placeholder="How many guests?"
                 required
+                aria-label={`Enter number of guests, maximum allowed is ${venue.maxGuests}`}
                 onChange={(e) =>
                   setBookingData({
                     ...bookingData,
