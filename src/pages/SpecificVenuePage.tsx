@@ -1,11 +1,12 @@
 // This page is responsible for displaying the details of a specific venue when a user clicks on it from the list of venues. It fetches the venue details from the API using the venue ID from the URL parameters and displays them in a visually appealing way. It also includes error handling and loading states to enhance the user experience.
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { type Venue } from "../types/venue";
 
-// The SpecificVenuePage component is defined as a functional component. It uses the useParams hook to extract the venue ID from the URL, and it manages local state for the venue details, loading status, and any errors that may occur during data fetching. The useEffect hook is used to fetch the venue details from the API when the component mounts or when the venue ID changes. The component renders different UI states based on whether it's loading, if there's an error, or if the venue data is successfully fetched.
+// The SpecificVenuePage component is defined as a functional component. It uses the useParams hook to extract the venue ID from the URL, and it manages local state for the venue details, loading status, and any errors that may occur during data fetching. The useEffect hook is used to fetch the venue details from the API when the component mounts or when the venue ID changes. The component renders different UI states based on whether it's loading, if there's an error, or if the venue data is successfully fetched. It also includes a booking form that allows users to select check-in and check-out dates, as well as the number of guests, and then navigate to the checkout page with the booking details passed via React Router state.
 const SpecificVenuePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [venue, setVenue] = useState<Venue | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -17,7 +18,7 @@ const SpecificVenuePage: React.FC = () => {
     guests: 1,
   });
 
-  // The useEffect hook is used to perform side effects in the component, in this case, fetching data from the API. We define an asynchronous function fetchVenueDetails that makes a GET request to the API endpoint for the specific venue using the ID from the URL parameters. We include error handling to catch any issues that may arise during the fetch operation, and we update the local state accordingly to reflect the loading status and any errors. This ensures that the user receives feedback while the data is being fetched and if any issues occur.
+  // The useEffect hook is used to perform side effects in the component, in this case, fetching data from the API. We define an asynchronous function fetchVenueDetails that makes a GET request to the API endpoint for the specific venue using the ID from the URL parameters. We include error handling to catch any issues that may arise during the fetch operation, and we update the local state accordingly to reflect the loading status and any errors. This ensures that the user receives feedback while the data is being fetched and if any issues occur. The dependency array [id] ensures that the effect runs whenever the venue ID changes, allowing for dynamic fetching of different venues without needing to reload the page.
   useEffect(() => {
     const fetchVenueDetails = async () => {
       const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -49,48 +50,40 @@ const SpecificVenuePage: React.FC = () => {
   }, [id]);
 
   // Handler for booking submission that sends a POST request to the API to create a new booking for the venue. It includes the necessary headers for authentication and content type, and it sends the booking data in the request body. If the booking is successful, it redirects the user to a booking confirmation page. If there is an error during the booking process, it alerts the user to ensure they are logged in.
-  const handleBooking = async (e: React.SyntheticEvent) => {
+  const handleBooking = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
-    const apiKey = import.meta.env.VITE_API_KEY;
-    const token = localStorage.getItem("accessToken");
 
-    try {
-      const response = await fetch(`${baseUrl}/holidaze/bookings`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "X-Noroff-API-Key": apiKey,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...bookingData,
-          guests: Number(bookingData.guests),
-          venueId: id,
-        }),
-      });
-
-      if (response.ok) {
-        window.location.href = "/booking-confirmation";
-      } else {
-        alert("Booking failed. Please ensure you are logged in.");
-      }
-    } catch (error) {
-      console.error("Error creating booking:", error);
+    // Ensure dates are selected before allowing booking submission.
+    if (!bookingData.dateFrom || !bookingData.dateTo) {
+      alert("Please select both check-in and check-out dates.");
+      return;
     }
+
+    // Pass the state to the new checkout route so we can display the booking summary there before final confirmation.
+    navigate("/checkout", {
+      state: {
+        venue: venue,
+        bookingData: bookingData,
+      },
+    });
   };
 
   // Conditional rendering based on the loading state, error state, and whether the venue data is available. If the component is currently loading data, it displays a loading message. If there was an error during the fetch operation, it displays the error message. If the venue data was successfully fetched but is not found (e.g., if the ID is invalid), it displays a "Venue not found" message. Finally, if the venue data is successfully fetched and available, it renders the details of the venue in a structured and visually appealing layout.
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className="text-center text-white mt-20">
         Loading venue details...
       </div>
     );
-  if (error)
+  }
+
+  if (error) {
     return <div className="text-center text-red-400 mt-20">{error}</div>;
-  if (!venue)
+  }
+
+  if (!venue) {
     return <div className="text-center text-white mt-20">Venue not found.</div>;
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
@@ -219,5 +212,4 @@ const SpecificVenuePage: React.FC = () => {
     </div>
   );
 };
-
 export default SpecificVenuePage;
