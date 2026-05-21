@@ -116,7 +116,7 @@ export default function Header() {
                       onClick={() => setIsDropdownOpen(false)}
                       className="px-4 py-2 text-sm text-mint-green hover:bg-slate-700 transition-colors text-left font-medium"
                     >
-                      Manager Dashboard
+                      Venue Manager Dashboard
                     </Link>
                   ) : (
                     <Link

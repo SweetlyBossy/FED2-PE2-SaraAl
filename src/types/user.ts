@@ -23,3 +23,7 @@ export interface FullProfileData {
   bookings: Booking[];
   venues: Venue[];
 }
+
+export interface BecomeAHostProps {
+  onSuccess?: () => void;
+}
