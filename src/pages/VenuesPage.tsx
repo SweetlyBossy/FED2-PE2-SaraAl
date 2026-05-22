@@ -345,8 +345,16 @@ const VenuesPage: React.FC = () => {
                       {venue.name}
                     </h2>
                     <p className="text-white/70 text-xs mb-3 truncate">
-                      {venue.location?.city ? `${venue.location.city}, ` : ""}
-                      {venue.location?.country || "Location unavailable"}
+                      {venue.location?.address ? (
+                        venue.location.address
+                      ) : (
+                        <>
+                          {venue.location?.city
+                            ? `${venue.location.city}, `
+                            : ""}
+                          {venue.location?.country || "Location unavailable"}
+                        </>
+                      )}
                     </p>
                     <div className="w-full h-40 bg-gray-200 rounded mb-4 overflow-hidden">
                       {venue.media && venue.media.length > 0 ? (
