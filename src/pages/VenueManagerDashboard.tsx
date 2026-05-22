@@ -81,6 +81,38 @@ const DashboardPage: React.FC = () => {
     // The dependencies for this useEffect include user name, access token, authentication status, venue manager status, and the refresh trigger. This ensures that the dashboard data is re-fetched whenever any of these values change, allowing for dynamic updates to the dashboard based on user actions or changes in authentication state.
   }, [user?.name, accessToken, isAuthenticated, venueManager, refreshTrigger]);
 
+  // The handleDeleteVenue function allows a venue manager to permanently delete one of their listed venues. It prompts for confirmation to prevent accidental deletions. If confirmed, it makes a DELETE request to the API. On success, it alerts the user and increments the refreshTrigger to immediately update the dashboard UI, removing the deleted venue from the list.
+  const handleDeleteVenue = async (venueId: string) => {
+    const confirmDelete = window.confirm("Are you sure you want to permanently delete this venue? This cannot be undone.");
+    if (!confirmDelete || !accessToken) return;
+
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const apiKey = import.meta.env.VITE_API_KEY;
+
+    try {
+      setIsLoading(true); 
+
+      const response = await fetch(`${baseUrl}/holidaze/venues/${venueId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+      });
+
+      if (!response.ok) throw new Error("Could not delete the venue.");
+      
+      alert("Venue deleted successfully.");
+      
+      // Increment the trigger to instantly refresh the dashboard
+      setRefreshTrigger((prev) => prev + 1); 
+      
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to delete venue.");
+      setIsLoading(false);
+    }
+  };
+
   // The handleDeclineBooking function is responsible for handling the decline or cancellation of a booking. It prompts the user for confirmation before proceeding with the cancellation. If the user confirms, it makes an API call to delete the booking. If the API call is successful, it alerts the user that the booking has been declined and triggers a refresh of the dashboard data to reflect the change. If there is an error during the API call, it alerts the user with the error message. This function ensures that venue managers can manage their bookings directly from the dashboard and that any changes are immediately reflected in the UI.
   const handleDeclineBooking = async (bookingId: string) => {
     const confirmDecline = window.confirm(
@@ -191,19 +223,34 @@ const DashboardPage: React.FC = () => {
                           {venue.name}
                         </h3>
                         <p className="text-xs text-slate-400 flex items-center gap-1 mt-1">
-                          📍 {venue.location.city || "Unknown"},{" "}
-                          {venue.location.country || "Unknown"}
+                          📍{" "}
+                          {venue.location.address ||
+                            venue.location.city ||
+                            "Unknown"}
+                          {venue.location.country ||
+                            venue.location.continent}{" "}
                         </p>
-                        <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 bg-mint-green/20 text-mint-green rounded-full">
+                        <span className="inline-block mt-2 text-sm font-bold px-2 py-0.5 bg-mint-green/20 text-mint-green rounded-full">
                           Active
                         </span>
                       </div>
-                      <Link
-                        to={`/edit-venue/${venue.id}`}
-                        className="bg-mint-green/90 text-slate-900 text-xs font-bold py-1.5 px-3 rounded text-center mt-3 hover:bg-mint-green transition-colors"
-                      >
-                        Edit Details
-                      </Link>
+                      
+                      {/* EDITED: Flex column wrapping both Edit and Delete buttons */}
+                      <div className="flex flex-col gap-1.5 mt-3">
+                        <Link
+                          to={`/edit-venue/${venue.id}`}
+                          className="bg-mint-green/90 text-slate-900 text-xs font-bold py-1.5 px-3 rounded text-center hover:bg-mint-green transition-colors"
+                        >
+                          Edit Details
+                        </Link>
+                        <button 
+                          onClick={() => handleDeleteVenue(venue.id)}
+                          className="bg-red-500/20 text-red-400 text-xs font-bold py-1.5 px-3 rounded text-center hover:bg-red-500 hover:text-white transition-colors border border-red-500/50"
+                        >
+                          Delete Venue
+                        </button>
+                      </div>
+
                     </div>
                   </div>
                 ))}
