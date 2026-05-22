@@ -244,7 +244,7 @@ const CreateVenuePage: React.FC = () => {
             <button 
               type="submit" 
               disabled={isSubmitting}
-              className="bg-mint-green text-slate-900 font-bold py-3 px-8 rounded-full text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[200px]"
+              className="bg-mint-green text-slate-900 font-bold py-3 px-8 rounded-full text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-50"
             >
               {isSubmitting ? "Processing..." : "Create & Publish Venue"}
             </button>
