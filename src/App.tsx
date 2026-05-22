@@ -11,6 +11,9 @@ import BookingConfirmation from "./pages/BookingConfirmation";
 import BecomeHostPage from "./pages/BecomeHostPage";
 import VenueManagerDashboard from "./pages/VenueManagerDashboard";
 import CreateVenuePage from "./pages/CreateVenuePage";
+import EditVenuePage from "./pages/EditVenuePage";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
 
 export default function App() {
   return (
@@ -30,6 +33,9 @@ export default function App() {
             <Route path="/become-host" element={<BecomeHostPage />} />
             <Route path="/dashboard" element={<VenueManagerDashboard />} />
             <Route path="/create-venue" element={<CreateVenuePage />} />
+            <Route path="/edit-venue/:id" element={<EditVenuePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/about" element={<AboutPage />} />
           </Routes>
         </main>
       </div>
