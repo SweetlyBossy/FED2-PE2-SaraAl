@@ -96,7 +96,7 @@ const VenuesPage: React.FC = () => {
         (venue.location?.city || "")
           .toLowerCase()
           .includes(filters.city.toLowerCase());
-      // The venue must meet all criteria to be included in the final filtered results. This ensures that users see only the venues that match all of their specified filters, providing a more relevant and personalized experience. 
+      // The venue must meet all criteria to be included in the final filtered results. This ensures that users see only the venues that match all of their specified filters, providing a more relevant and personalized experience.
       return (
         meetsPrice &&
         meetsGuests &&

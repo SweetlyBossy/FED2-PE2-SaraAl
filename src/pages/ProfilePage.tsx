@@ -190,7 +190,8 @@ const ProfilePage: React.FC = () => {
     const originalDateFrom = selectedBooking.dateFrom.split("T")[0];
     const originalDateTo = selectedBooking.dateTo.split("T")[0];
 
-    const isDateChanged = editDateFrom !== originalDateFrom || editDateTo !== originalDateTo;
+    const isDateChanged =
+      editDateFrom !== originalDateFrom || editDateTo !== originalDateTo;
 
     // Strict Lock: If the string for the start date is today or earlier, lock it!
     const hasBegun = originalDateFrom <= todayStr;
@@ -209,7 +210,7 @@ const ProfilePage: React.FC = () => {
 
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const apiKey = import.meta.env.VITE_API_KEY;
-    
+
     try {
       setIsModalProcessing(true);
       const response = await fetch(
@@ -322,7 +323,7 @@ const ProfilePage: React.FC = () => {
     profile.bookings?.filter((b) => new Date(b.dateTo) < todayDateObj) || [];
 
   // --- DERIVED STATE FOR THE MODAL ---
-  // We calculate if the currently selected booking is locked right before rendering the HTML. 
+  // We calculate if the currently selected booking is locked right before rendering the HTML.
   // This guarantees React always has the correct true/false value when opening the modal!
   let isModalLocked = false;
   if (selectedBooking) {
@@ -434,9 +435,9 @@ const ProfilePage: React.FC = () => {
                       className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 flex flex-col relative group"
                     >
                       <img
-                        src={b.venue.media[0]?.url || "/fallback-image.jpg"}
+                        src={b.venue?.media[0]?.url || "/fallback-image.jpg"}
                         className="w-full h-64 object-cover bg-slate-200"
-                        alt={b.venue.name}
+                        alt={b.venue?.name}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =
                             "/fallback-image.jpg";
@@ -456,7 +457,7 @@ const ProfilePage: React.FC = () => {
                       {/* Right Side: Venue Details Routing Button */}
                       <div className="absolute bottom-4 right-4 z-20">
                         <Link
-                          to={`/venues/${b.venue.id}`}
+                          to={`/venues/${b.venue?.id}`}
                           className="bg-slate-400/90 backdrop-blur-sm text-white font-bold px-8 py-2 rounded-full shadow-md text-sm hover:bg-slate-500 transition-colors"
                         >
                           Details
@@ -481,14 +482,14 @@ const ProfilePage: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {past.map((b) => (
                       <Link
-                        to={`/venues/${b.venue.id}`}
+                        to={`/venues/${b.venue?.id}`}
                         key={b.id}
                         className="bg-white rounded-xl shadow-sm overflow-hidden flex h-24 border border-slate-100 p-2 hover:bg-slate-50 transition-colors cursor-pointer"
                       >
                         <img
-                          src={b.venue.media[0]?.url || "/fallback-image.jpg"}
+                          src={b.venue?.media[0]?.url || "/fallback-image.jpg"}
                           className="h-full w-1/3 object-cover rounded"
-                          alt={b.venue.name}
+                          alt={b.venue?.name}
                           onError={(e) => {
                             (e.target as HTMLImageElement).src =
                               "/fallback-image.jpg";
@@ -569,7 +570,7 @@ const ProfilePage: React.FC = () => {
                   Manage Reservation
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5 truncate">
-                  {selectedBooking.venue.name}
+                  {selectedBooking.venue?.name}
                 </p>
               </div>
               <button
@@ -582,7 +583,6 @@ const ProfilePage: React.FC = () => {
 
             {/* Modal Actions Form */}
             <form onSubmit={handleSaveBookingChange} className="p-6 space-y-5">
-              
               {/* DATE INPUTS */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -638,7 +638,7 @@ const ProfilePage: React.FC = () => {
                   id="editGuests"
                   type="number"
                   min="1"
-                  max={selectedBooking.venue.maxGuests || 99}
+                  max={selectedBooking.venue?.maxGuests || 99}
                   required
                   value={editGuests}
                   onChange={(e) => setEditGuests(parseInt(e.target.value) || 1)}

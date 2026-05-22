@@ -22,17 +22,16 @@ export default function Login() {
     setServerError(null);
     setIsLoading(true);
 
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
     try {
-      // Call the Noroff API using our environment variable for the base URL. We send a POST request to the /auth/login endpoint with the email and password as JSON in the request body. We also set the Content-Type header to application/json to indicate that we are sending JSON data.
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        },
-      );
-      // We parse the JSON response from the server. If the response is not ok, we throw an error with a message extracted from the response or a generic message if no specific error message is provided. This will be caught in our catch block where we handle errors gracefully and provide feedback to the user.
+      // 1. Call the Noroff API to authenticate.
+      const response = await fetch(`${baseUrl}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
       const result = await response.json();
 
       if (!response.ok) {
@@ -42,7 +41,21 @@ export default function Login() {
         );
       }
 
-      // Success! We save the token and user info into our global state using the login function from our AuthContext. This will allow us to manage the user's authenticated state across the entire app and provide access to protected routes and features based on their login status.
+      // The login endpoint doesn't always return the updated manager status. To ensure we have the most accurate information about the user's role, we make an additional API call to fetch the user's profile after a successful login. This allows us to verify whether the user is a venue manager or not, which is crucial for determining what parts of the app they should have access to.
+      const profileResponse = await fetch(
+        `${baseUrl}/holidaze/profiles/${result.data.name}`,
+        {
+          headers: {
+            Authorization: `Bearer ${result.data.accessToken}`,
+            "X-Noroff-API-Key": import.meta.env.VITE_API_KEY,
+          },
+        },
+      );
+
+      const profileResult = await profileResponse.json();
+      const isManager = profileResult.data.venueManager;
+
+      // Update the global authentication state with the user's token and information, including the verified manager status. This allows the rest of the app to know that the user is logged in and whether they have manager privileges, which can be used to conditionally render certain features or pages.
       login(
         result.data.accessToken,
         {
@@ -50,13 +63,13 @@ export default function Login() {
           email: result.data.email,
           avatar: result.data.avatar,
         },
-        result.data.venueManager,
+        isManager, // Pass the verified status from the profile fetch
       );
 
       // Redirect the user to their home after a successful login
       navigate("/");
     } catch (error) {
-      // Strictly typed error handling to ensure we can safely access the message property. If the error is an instance of the Error class, we set the serverError state to the error message, which will then be displayed to the user in the UI. If it's not an Error we set a generic error message to inform the user that something unexpected went wrong during login. This ensures that we handle all types of errors gracefully and provide feedback to the user regardless of the error type.
+      // Strictly typed error handling to ensure we can safely access the message property.
       if (error instanceof Error) {
         setServerError(error.message);
       } else {
@@ -69,7 +82,10 @@ export default function Login() {
 
   return (
     // Background setup matching the Register page exactly
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-royal-blue to-slate-900 p-4 font-inter">
+    <div
+      className="min-h-screen flex items-center justify-center p-4 font-inter bg-cover bg-center bg-no-repeat "
+      style={{ backgroundImage: "url('/background.png')" }}
+    >
       {/* Glassmorphism Card Container */}
       <section className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center">
         <div className="mb-8">
@@ -151,11 +167,11 @@ export default function Login() {
         </form>
 
         {/* Redirect to Register */}
-        <p className="mt-6 text-center text-sm text-slate-300">
+        <p className="mt-6 text-center text-sm text-black">
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="text-mint-green hover:text-white font-semibold transition-colors"
+            className="text-neon-mint hover:text-white font-semibold transition-colors"
           >
             Sign up
           </Link>

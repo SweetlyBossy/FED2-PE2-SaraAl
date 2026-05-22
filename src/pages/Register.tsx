@@ -122,8 +122,11 @@ export default function Register() {
     }
   };
   return (
-    // Background setup: Dark gradient matching the Nordic Stay theme with padding and font styling. We use Tailwind CSS utility classes to create a full-screen background with a gradient that transitions from dark navy to a blue shade and back to dark navy. We also add padding around the content and set the font to 'Inter' for a clean, modern look that fits the overall design of the app.
-    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-royal-blue` to-slate-900 p-4 font-inter">
+    // The main container for the registration page. We use Tailwind CSS classes to create a full-screen background with a centered card for the registration form. The background image is set using inline styles to ensure it covers the entire screen and is centered properly. The card itself has a glassmorphism effect with a semi-transparent background, rounded corners, and a shadow to make it stand out against the background while still fitting the overall aesthetic of the Nordic Stay theme.
+    <div
+      className="min-h-screen flex items-center justify-center p-4 font-inter bg-cover bg-center bg-no-repeat "
+      style={{ backgroundImage: "url('/background.png')" }}
+    >
       {/* Glassmorphism Card Container */}
       <div className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
         <div className="text-center mb-8">

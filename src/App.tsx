@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
 import BookingConfirmation from "./pages/BookingConfirmation";
 import BecomeHostPage from "./pages/BecomeHostPage";
+import VenueManagerDashboard from "./pages/VenueManagerDashboard";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/booking-confirmation" element={<BookingConfirmation />} />
             <Route path="/become-host" element={<BecomeHostPage />} />
+            <Route path="/dashboard" element={<VenueManagerDashboard />} />
           </Routes>
         </main>
       </div>

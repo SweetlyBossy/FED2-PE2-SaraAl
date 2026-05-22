@@ -17,7 +17,10 @@ export default function Header() {
   // Close the dropdown if the user clicks anywhere outside of it - we add a global click listener when the component mounts and clean it up when it unmounts. This ensures that the dropdown menu behaves intuitively and doesn't stay open when the user clicks away, which could lead to a confusing user experience.
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -97,8 +100,12 @@ export default function Header() {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-3 w-56 bg-slate-800 border border-white/10 rounded-lg shadow-xl py-2 flex flex-col z-50">
                   <div className="px-4 py-2 border-b border-white/10 mb-2">
-                    <p className="text-sm text-white font-semibold truncate">{user?.name}</p>
-                    <p className="text-xs text-white/60 truncate">{user?.email}</p>
+                    <p className="text-sm text-white font-semibold truncate">
+                      {user?.name}
+                    </p>
+                    <p className="text-xs text-white/60 truncate">
+                      {user?.email}
+                    </p>
                   </div>
 
                   <Link
@@ -129,7 +136,7 @@ export default function Header() {
                   )}
 
                   <hr className="border-white/10 my-2" />
-                  
+
                   <button
                     onClick={() => {
                       logout();

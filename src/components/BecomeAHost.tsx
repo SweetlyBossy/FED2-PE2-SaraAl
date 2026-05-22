@@ -15,28 +15,35 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     try {
-      const response = await fetch(`${baseUrl}/holidaze/profiles/${user.name}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": apiKey,
-          "Content-Type": "application/json",
+      const response = await fetch(
+        `${baseUrl}/holidaze/profiles/${user.name}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "X-Noroff-API-Key": apiKey,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ venueManager: true }),
         },
-        body: JSON.stringify({ venueManager: true }),
-      });
+      );
 
       if (!response.ok) throw new Error("Failed to update profile.");
 
       const data = await response.json();
-      
+
       // Update global context so the Header updates automatically
       updateUserData({ venueManager: data.data.venueManager });
-      
-     if (onSuccess) onSuccess();
+
+      if (onSuccess) onSuccess();
       alert("Success! You are now a Venue Manager.");
     } catch (error) {
-      console.error(error); 
-      alert(error instanceof Error ? error.message : "An unexpected error occurred.");
+      console.error(error);
+      alert(
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred.",
+      );
     } finally {
       setIsProcessing(false);
     }
@@ -52,13 +59,18 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
         <button
           onClick={() => setIsChecked(!isChecked)}
           className={`w-20 h-6 rounded-full transition-colors flex items-center border-2 ${
-            isChecked ? "bg-mint-green border-mint-green" : "bg-slate-300 border-slate-400"
+            isChecked
+              ? "bg-mint-green border-mint-green"
+              : "bg-slate-300 border-slate-400"
           }`}
         >
-          <div className={`w-5 h-5 bg-white rounded-full transition-transform ${isChecked ? "translate-x-6" : "translate-x-0"}`} />
+          <div
+            className={`w-5 h-5 bg-white rounded-full transition-transform ${isChecked ? "translate-x-6" : "translate-x-0"}`}
+          />
         </button>
         <p className="text-black text-lg leading-snug font-medium">
-          I have read and accept the terms & conditions for becoming a venue manager.
+          I have read and accept the terms & conditions for becoming a venue
+          manager.
         </p>
       </div>
 

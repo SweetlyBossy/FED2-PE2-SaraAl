@@ -32,7 +32,7 @@ const CheckoutPage: React.FC = () => {
   const totalPrice = diffDays * venue.price;
 
   // The ACTUAL API call to create the booking happens here. When the user submits the form, we set the isProcessing state to true to indicate that the booking is being processed. We then make a POST request to the /holidaze/bookings endpoint with the necessary headers for authentication and content type, and we include the booking details in the request body. If the booking is successful, we navigate to the BookingConfirmation page and pass the relevant data through state. If there is an error during the booking process, we alert the user with an appropriate message. Finally, we reset the isProcessing state to false regardless of the outcome to allow for further interactions if needed.
- const handleConfirmAndPay = async (e: React.SyntheticEvent) => {
+  const handleConfirmAndPay = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsProcessing(true);
 

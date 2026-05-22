@@ -7,19 +7,17 @@ const BecomeHostPage: React.FC = () => {
   const { isAuthenticated, venueManager } = useAuth();
   const navigate = useNavigate();
 
-  // Security: If they aren't logged in, send them to login. 
+  // Security: If they aren't logged in, send them to login.
   // If they are ALREADY a manager, send them to their profile/dashboard.
   if (!isAuthenticated) return <Navigate to="/login" />;
   if (venueManager) return <Navigate to="/profile" />;
 
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4 pt-24">
-      
       {/* Here is your shiny new component! 
         When the API succeeds, we instantly navigate them to their new dashboard. 
       */}
       <BecomeAHost onSuccess={() => navigate("/profile")} />
-
     </div>
   );
 };
