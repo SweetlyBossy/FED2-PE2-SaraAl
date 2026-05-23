@@ -51,14 +51,14 @@ Installation
 
 Clone the repository:
 - git clone [https://github.com/SweetlyBossy/FED2-PE2-SaraAl.git]
-Navigate into the directory:
 
+Navigate into the directory:
 Install NPM packages:
 - npm install
 
 Start the development server:
 - npm run dev
-Open your browser and visit http://localhost:5173
+* Open your browser and visit http://localhost:5173
 
 ### Environment Variables
 To run this project locally, you must create a .env file in the root directory and add the following variables. Note: You must generate your own API key via the Noroff API portal.
@@ -74,6 +74,5 @@ This project has been rigorously tested against the PE2 user stories and validat
 - W3C HTML Validator: Verified to ensure clean, error-free DOM rendering.
 
 ### Author
-Sara Al
-GitHub: @SweetlyBossy
-Noroff Project Exam 2 - Front-End Development
+**Sara Al** • **GitHub:** [@SweetlyBossy](https://github.com/SweetlyBossy)
+*Noroff Project Exam 2 - Front-End Development*
