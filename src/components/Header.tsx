@@ -150,7 +150,7 @@ export default function Header() {
               )}
             </div>
           ) : (
-            // What guests see
+            // What guests see 
             <div className="flex items-center gap-3">
               <Link
                 to="/login"

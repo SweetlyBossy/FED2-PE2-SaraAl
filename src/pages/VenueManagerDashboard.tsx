@@ -104,7 +104,7 @@ const DashboardPage: React.FC = () => {
       
       alert("Venue deleted successfully.");
       
-      // Increment the trigger to instantly refresh the dashboard
+      // Increment the trigger to instantly refresh the dashboard data and reflect the deletion without needing to wait for a manual refresh or navigation.
       setRefreshTrigger((prev) => prev + 1); 
       
     } catch (err) {
@@ -235,7 +235,7 @@ const DashboardPage: React.FC = () => {
                         </span>
                       </div>
                       
-                      {/* EDITED: Flex column wrapping both Edit and Delete buttons */}
+                      {/* Edit and Delete buttons */}
                       <div className="flex flex-col gap-1.5 mt-3">
                         <Link
                           to={`/edit-venue/${venue.id}`}

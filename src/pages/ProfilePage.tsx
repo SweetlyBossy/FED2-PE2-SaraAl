@@ -18,7 +18,7 @@ const ProfilePage: React.FC = () => {
   const [bio, setBio] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // --- State for managing a selected booking in the modal ---
+  // State for managing a selected booking in the modal 
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [editDateFrom, setEditDateFrom] = useState("");
   const [editDateTo, setEditDateTo] = useState("");
@@ -51,8 +51,7 @@ const ProfilePage: React.FC = () => {
     }
   };
 
-  // Fetch the complete profile data when the component mounts or when the user's name or access token changes. This ensures we have the most up-to-date information, including the user's bookings and venue manager status.
-  // We use the ?_bookings=true flag to tell the API to include the user's reservations.
+  // Fetch the complete profile data when the component mounts or when the user's name or access token changes. This ensures we have the most up-to-date information, including the user's bookings and venue manager status. We use the ?_bookings=true flag to tell the API to include the user's reservations.
   useEffect(() => {
     const loadInitialProfile = async () => {
       if (!user?.name || !accessToken) return;
@@ -112,7 +111,7 @@ const ProfilePage: React.FC = () => {
     try {
       setIsUpdating(true);
 
-      // 1. Send the update to the API using the base profile endpoint. This ensures that both the bio and avatar are updated in one request, and we handle any errors that come back from the API gracefully. We also make sure to include the necessary authentication headers.
+      // Send the update to the API using the base profile endpoint. This ensures that both the bio and avatar are updated in one request, and we handle any errors that come back from the API gracefully. We also make sure to include the necessary authentication headers.
       const response = await fetch(
         `${baseUrl}/holidaze/profiles/${user.name}`,
         {
@@ -133,7 +132,7 @@ const ProfilePage: React.FC = () => {
         );
       }
 
-      // 2. Fetch the fresh data right away so the UI updates without a reload! This ensures the user sees their new avatar and bio immediately after saving. We also update the global auth context with the new avatar URL so that the header avatar changes as well.
+      // Fetch the fresh data right away so the UI updates without a reload! This ensures the user sees their new avatar and bio immediately after saving. We also update the global auth context with the new avatar URL so that the header avatar changes as well.
       const refreshRes = await fetch(
         `${baseUrl}/holidaze/profiles/${user.name}?_bookings=true&_venues=true`,
         {
@@ -186,7 +185,7 @@ const ProfilePage: React.FC = () => {
     const d = new Date();
     const todayStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 
-    // Extract original dates directly from the API string
+    // Extract original dates directly from the API string to avoid timezone bugs where the date could shift backward by a day if we create new Date objects from them. This way, we can accurately compare the original booking dates with the edited dates to enforce our strict lock on changing dates for bookings that have already begun.
     const originalDateFrom = selectedBooking.dateFrom.split("T")[0];
     const originalDateTo = selectedBooking.dateTo.split("T")[0];
 
@@ -322,7 +321,6 @@ const ProfilePage: React.FC = () => {
   const past: Booking[] =
     profile.bookings?.filter((b) => new Date(b.dateTo) < todayDateObj) || [];
 
-  // --- DERIVED STATE FOR THE MODAL ---
   // We calculate if the currently selected booking is locked right before rendering the HTML.
   // This guarantees React always has the correct true/false value when opening the modal!
   let isModalLocked = false;
@@ -444,7 +442,7 @@ const ProfilePage: React.FC = () => {
                         }}
                       />
 
-                      {/* Left Side: Interactive Edit Management Button */}
+                      {/* Interactive Edit Management Button */}
                       <div className="absolute bottom-4 left-4 z-20">
                         <button
                           onClick={() => openEditModal(b)}
@@ -454,7 +452,7 @@ const ProfilePage: React.FC = () => {
                         </button>
                       </div>
 
-                      {/* Right Side: Venue Details Routing Button */}
+                      {/* Venue Details Routing Button */}
                       <div className="absolute bottom-4 right-4 z-20">
                         <Link
                           to={`/venues/${b.venue?.id}`}

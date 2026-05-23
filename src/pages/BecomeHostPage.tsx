@@ -14,9 +14,7 @@ const BecomeHostPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-4 pt-24">
-      {/* Here is your shiny new component! 
-        When the API succeeds, we instantly navigate them to their new dashboard. 
-      */}
+      {/* When the API succeeds, we instantly navigate them to their new dashboard */}
       <BecomeAHost onSuccess={() => navigate("/profile")} />
     </div>
   );

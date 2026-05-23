@@ -63,7 +63,7 @@ const VenuesPage: React.FC = () => {
     fetchVenues();
   }, []);
 
-  // --- Search & Filter Logic --- Using useMemo to apply search and filter logic whenever the search query, filters, or venues data changes. This ensures that the displayed venues are always up-to-date with the user's criteria.
+  // Search & Filter Logic. Using useMemo to apply search and filter logic whenever the search query, filters, or venues data changes. This ensures that the displayed venues are always up-to-date with the user's criteria.
   const filteredVenues = useMemo(() => {
     let result = venues;
 
@@ -113,14 +113,14 @@ const VenuesPage: React.FC = () => {
     return result;
   }, [searchQuery, filters, venues]);
 
-  // --- Pagination Logic --- Calculating total pages based on the number of filtered venues and slicing the filtered venues array to get only the venues for the current page. This improves performance by only rendering a subset of venues at a time, especially when dealing with large datasets.
+  // Pagination Logic. Calculating total pages based on the number of filtered venues and slicing the filtered venues array to get only the venues for the current page. This improves performance by only rendering a subset of venues at a time, especially when dealing with large datasets.
   const totalPages = Math.ceil(filteredVenues.length / ITEMS_PER_PAGE);
   const currentVenues = filteredVenues.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
 
-  // --- Handlers --- A single handler for all filter changes, which updates the filters state based on the input type (checkbox, number/range, or text). This simplifies the code and ensures that all filter inputs are handled consistently. The handler also safely converts number inputs to numbers and handles checkbox inputs correctly.
+  // Filter handlers. A single handler for all filter changes, which updates the filters state based on the input type (checkbox, number/range, or text). This simplifies the code and ensures that all filter inputs are handled consistently. The handler also safely converts number inputs to numbers and handles checkbox inputs correctly.
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFilters((prev) => ({

@@ -1,4 +1,4 @@
-// This file defines the Login component, which provides the user interface and logic for logging into the Nordic Stay application. It includes form handling, API communication, error management, and integration with our global authentication context to manage user state across the app.
+// This file defines the Login component, which provides the user interface and logic for logging into the Nordic Stay application. It includes form handling, API communication, error management, and integration with our global authentication context to manage user state across the app. The component is designed to be user-friendly and visually consistent with the rest of the application, using a glassmorphism style for the login card and providing clear feedback during the login process. It also ensures that after a successful login, the user's authentication state is updated globally and they are redirected to their home page. Additionally, it includes error handling to display any issues that arise during the login attempt, such as incorrect credentials or server errors.
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Button from "../components/Buttons";
@@ -81,7 +81,6 @@ export default function Login() {
   };
 
   return (
-    // Background setup matching the Register page exactly
     <div
       className="min-h-screen flex items-center justify-center p-4 font-inter bg-cover bg-center bg-no-repeat "
       style={{ backgroundImage: "url('/background.png')" }}
@@ -132,7 +131,7 @@ export default function Login() {
             />
           </div>
 
-          {/* Submit Button using the Custom Component */}
+          {/* Submit Button */}
           <Button
             type="submit"
             variant="action"

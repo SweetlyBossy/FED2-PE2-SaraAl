@@ -72,8 +72,8 @@ const ContactPage: React.FC = () => {
             <p className="text-sm text-slate-500 mb-4">
               Mon-Fri from 08:00 to 16:00 (CET).
             </p>
-            <a href="tel:+4722000000" className="text-teal-600 font-semibold hover:underline mt-auto">
-              +47 22 00 00 00
+            <a href="tel:+4722002222" className="text-teal-600 font-semibold hover:underline mt-auto">
+              +47 22 00 22 22
             </a>
           </div>
 

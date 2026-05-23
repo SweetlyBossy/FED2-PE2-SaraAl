@@ -7,7 +7,7 @@ import Button from "../components/Buttons";
 export default function Register() {
   const navigate = useNavigate();
 
-  // 1. Native Form State - We use a single state object to hold all form fields for simplicity. Each field is initialized to an empty string. This allows us to easily manage and update the form data as the user types.
+  // Native Form State - We use a single state object to hold all form fields for simplicity. Each field is initialized to an empty string. This allows us to easily manage and update the form data as the user types.
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +15,7 @@ export default function Register() {
     confirmPassword: "",
   });
 
-  // 2. UI States - We have separate states for form validation errors, server errors, and loading status. This helps us provide clear feedback to the user at each step of the registration process.
+  // UI States - We have separate states for form validation errors, server errors, and loading status. This helps us provide clear feedback to the user at each step of the registration process.
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [serverError, setServerError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function Register() {
     }
   };
 
-  // 3. Custom Validation Logic - We have a dedicated function to validate the form data before submission. This function checks each field against our defined validation rules (e.g., required fields, email format, password length, password match) and populates an errors object with any validation messages. If there are no errors, it returns true, allowing the form submission to proceed. If there are errors, it updates the errors state to display the messages to the user and prevents the form from being submitted.
+  // Custom Validation Logic - We have a dedicated function to validate the form data before submission. This function checks each field against our defined validation rules (e.g., required fields, email format, password length, password match) and populates an errors object with any validation messages. If there are no errors, it returns true, allowing the form submission to proceed. If there are errors, it updates the errors state to display the messages to the user and prevents the form from being submitted.
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
@@ -237,7 +237,7 @@ export default function Register() {
             )}
           </div>
 
-          {/* Submit Button using the Custom Component */}
+          {/* Submit Button */}
           <Button
             type="submit"
             variant="action"

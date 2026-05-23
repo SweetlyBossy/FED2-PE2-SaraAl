@@ -110,7 +110,7 @@ const SpecificVenuePage: React.FC = () => {
             className="w-full h-80 object-cover rounded-xl mb-8 shadow-lg"
           />
         )}
-
+          {/* Venue Description and Amenities Section */}
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-bold text-white mb-4">Description</h2>
