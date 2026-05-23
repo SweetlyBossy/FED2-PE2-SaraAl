@@ -5,7 +5,7 @@ const AboutPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white font-inter pb-20">
       
-      {/* Curved Hero Section (Consistent with Contact & Create pages) */}
+      {/* Curved Hero Section */}
       <div 
         className="relative h-64 md:h-80 w-full bg-cover bg-center rounded-b-[4rem] md:rounded-b-[6rem] shadow-md flex items-center justify-center pt-16"
         style={{ backgroundImage: "url('/background.png')" }} 
