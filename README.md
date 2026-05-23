@@ -65,7 +65,7 @@ To run this project locally, you must create a .env file in the root directory a
 
 - VITE_API_BASE_URL="[https://v2.api.noroff.dev]
 - VITE_API_KEY="47d984a7-a889-4088-ab5f-c3b321e439d9"
-- This is implemented into Netlify. Added here for local use also, due to grading. 
+This is implemented into Netlify. Added here for local use also, due to grading. 
 
 Testing & Validation
 This project has been rigorously tested against the PE2 user stories and validated using industry-standard tools to ensure maximum performance and accessibility:
