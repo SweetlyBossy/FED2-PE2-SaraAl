@@ -73,6 +73,9 @@ This project has been rigorously tested against the PE2 user stories and validat
 - WAVE (Web Accessibility Evaluation Tool): Tested to ensure proper contrast ratios, ARIA labeling, and semantic HTML structure.
 - W3C HTML Validator: Verified to ensure clean, error-free DOM rendering.
 
-### Author
-**Sara Al** • **GitHub:** [@SweetlyBossy](https://github.com/SweetlyBossy)
-*Noroff Project Exam 2 - Front-End Development*
+## 👤 Author
+
+| | | |
+| :--- | :--- | :--- |
+| **Sara Al** | [GitHub: @SweetlyBossy](https://github.com/SweetlyBossy)
+| *Noroff PE2* | *Front-End Development* | |
