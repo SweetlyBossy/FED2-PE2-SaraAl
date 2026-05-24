@@ -129,12 +129,15 @@ export default function Register() {
       style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Glassmorphism Card Container */}
-      <section 
+      <section
         aria-labelledby="register-heading"
         className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl"
       >
         <div className="text-center mb-8">
-          <h1 id="register-heading" className="text-3xl font-bold text-white mb-2">
+          <h1
+            id="register-heading"
+            className="text-3xl font-bold text-white mb-2"
+          >
             Create an Account
           </h1>
           <p className="text-slate-300 text-sm">
@@ -144,9 +147,9 @@ export default function Register() {
 
         {/* Server Error Alert */}
         {serverError && (
-          <div 
-            role="alert" 
-            aria-live="assertive" 
+          <div
+            role="alert"
+            aria-live="assertive"
             className="mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"
           >
             {serverError}
@@ -154,7 +157,12 @@ export default function Register() {
         )}
 
         {/* The Form */}
-        <form onSubmit={handleSubmit} className="space-y-5" noValidate aria-label="Registration form">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+          noValidate
+          aria-label="Registration form"
+        >
           {/* Name Field */}
           <div>
             <label
@@ -175,7 +183,11 @@ export default function Register() {
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.name && (
-              <p id="name-error" className="mt-1 text-xs text-red-400" role="alert">
+              <p
+                id="name-error"
+                className="mt-1 text-xs text-red-400"
+                role="alert"
+              >
                 {errors.name}
               </p>
             )}
@@ -201,7 +213,11 @@ export default function Register() {
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.email && (
-              <p id="email-error" className="mt-1 text-xs text-red-400" role="alert">
+              <p
+                id="email-error"
+                className="mt-1 text-xs text-red-400"
+                role="alert"
+              >
                 {errors.email}
               </p>
             )}
@@ -227,7 +243,11 @@ export default function Register() {
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.password && (
-              <p id="password-error" className="mt-1 text-xs text-red-400" role="alert">
+              <p
+                id="password-error"
+                className="mt-1 text-xs text-red-400"
+                role="alert"
+              >
                 {errors.password}
               </p>
             )}
@@ -249,11 +269,17 @@ export default function Register() {
               onChange={handleChange}
               placeholder="••••••••"
               aria-invalid={!!errors.confirmPassword}
-              aria-describedby={errors.confirmPassword ? "confirmPassword-error" : undefined}
+              aria-describedby={
+                errors.confirmPassword ? "confirmPassword-error" : undefined
+              }
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.confirmPassword && (
-              <p id="confirmPassword-error" className="mt-1 text-xs text-red-400" role="alert">
+              <p
+                id="confirmPassword-error"
+                className="mt-1 text-xs text-red-400"
+                role="alert"
+              >
                 {errors.confirmPassword}
               </p>
             )}

@@ -86,7 +86,10 @@ const CheckoutPage: React.FC = () => {
         style={{ backgroundImage: "url('/box-filler.png')" }}
         role="banner"
       >
-        <div className="absolute inset-0 bg-slate-900/40" aria-hidden="true"></div>
+        <div
+          className="absolute inset-0 bg-slate-900/40"
+          aria-hidden="true"
+        ></div>
         <h1 className="relative z-10 text-4xl md:text-5xl font-extrabold text-white tracking-wide shadow-black">
           Your Adventure Checkout
         </h1>
@@ -106,11 +109,16 @@ const CheckoutPage: React.FC = () => {
               {/* Name & Email */}
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     Name
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">👤</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      👤
+                    </span>
                     <input
                       id="name"
                       type="text"
@@ -122,11 +130,16 @@ const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     Email
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">✉️</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      ✉️
+                    </span>
                     <input
                       id="email"
                       type="email"
@@ -142,11 +155,16 @@ const CheckoutPage: React.FC = () => {
 
               {/* Address */}
               <div>
-                <label htmlFor="address" className="block text-sm font-bold text-slate-700 mb-1">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-bold text-slate-700 mb-1"
+                >
                   Address
                 </label>
                 <div className="flex items-center border-b border-slate-300 py-2">
-                  <span className="text-mint-green mr-3" aria-hidden="true">📍</span>
+                  <span className="text-mint-green mr-3" aria-hidden="true">
+                    📍
+                  </span>
                   <input
                     id="address"
                     type="text"
@@ -159,11 +177,16 @@ const CheckoutPage: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="city" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     City
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">🏙️</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      🏙️
+                    </span>
                     <input
                       id="city"
                       type="text"
@@ -174,11 +197,16 @@ const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="postalCode" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="postalCode"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     Postal Code
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">📮</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      📮
+                    </span>
                     <input
                       id="postalCode"
                       type="text"
@@ -193,11 +221,16 @@ const CheckoutPage: React.FC = () => {
               {/* Payment Details */}
               <h3 className="text-2xl font-bold pt-6 pb-2">Payment Details</h3>
               <div>
-                <label htmlFor="cardNumber" className="block text-sm font-bold text-slate-700 mb-1">
+                <label
+                  htmlFor="cardNumber"
+                  className="block text-sm font-bold text-slate-700 mb-1"
+                >
                   Card Number
                 </label>
                 <div className="flex items-center border-b border-slate-300 py-2">
-                  <span className="text-mint-green mr-3" aria-hidden="true">💳</span>
+                  <span className="text-mint-green mr-3" aria-hidden="true">
+                    💳
+                  </span>
                   <input
                     id="cardNumber"
                     type="text"
@@ -209,11 +242,16 @@ const CheckoutPage: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="expiry" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="expiry"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     Expiry
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">📅</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      📅
+                    </span>
                     <input
                       id="expiry"
                       type="text"
@@ -224,11 +262,16 @@ const CheckoutPage: React.FC = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="cvc" className="block text-sm font-bold text-slate-700 mb-1">
+                  <label
+                    htmlFor="cvc"
+                    className="block text-sm font-bold text-slate-700 mb-1"
+                  >
                     CVC
                   </label>
                   <div className="flex items-center border-b border-slate-300 py-2">
-                    <span className="text-mint-green mr-3" aria-hidden="true">🔒</span>
+                    <span className="text-mint-green mr-3" aria-hidden="true">
+                      🔒
+                    </span>
                     <input
                       id="cvc"
                       type="text"
@@ -243,7 +286,11 @@ const CheckoutPage: React.FC = () => {
           </div>
 
           {/* Booking Summary Card */}
-          <div className="lg:col-span-4 mt-12 lg:mt-0" role="region" aria-label="Booking Summary">
+          <div
+            className="lg:col-span-4 mt-12 lg:mt-0"
+            role="region"
+            aria-label="Booking Summary"
+          >
             <div className="bg-white rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.08)] overflow-hidden sticky top-8">
               {/* Venue Image */}
               <div className="p-6 pb-0">

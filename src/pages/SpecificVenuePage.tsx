@@ -1,11 +1,9 @@
 // This page is responsible for displaying the details of a specific venue when a user clicks on it from the list of venues. It fetches the venue details from the API using the venue ID from the URL parameters and displays them in a visually appealing way. It also includes error handling and loading states to enhance the user experience.
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css"; 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { type Venue } from "../types/venue";
-
-
 
 // The SpecificVenuePage component is defined as a functional component. It uses the useParams hook to extract the venue ID from the URL, and it manages local state for the venue details, loading status, and any errors that may occur during data fetching. The useEffect hook is used to fetch the venue details from the API when the component mounts or when the venue ID changes. The component renders different UI states based on whether it's loading, if there's an error, or if the venue data is successfully fetched. It also includes a booking form that allows users to select check-in and check-out dates, as well as the number of guests, and then navigate to the checkout page with the booking details passed via React Router state.
 const SpecificVenuePage: React.FC = () => {
@@ -31,12 +29,15 @@ const SpecificVenuePage: React.FC = () => {
       try {
         setIsLoading(true);
         // Added `&_bookings=true` to the fetch URL so the API returns the reservations we need to block out on the calendar.
-        const response = await fetch(`${baseUrl}/holidaze/venues/${id}?_bookings=true`, {
-          headers: {
-            "X-Noroff-API-Key": apiKey,
-            "Content-Type": "application/json",
+        const response = await fetch(
+          `${baseUrl}/holidaze/venues/${id}?_bookings=true`,
+          {
+            headers: {
+              "X-Noroff-API-Key": apiKey,
+              "Content-Type": "application/json",
+            },
           },
-        });
+        );
 
         if (!response.ok) throw new Error("Failed to fetch venue details");
 
@@ -57,7 +58,7 @@ const SpecificVenuePage: React.FC = () => {
   // This function takes all existing bookings for the venue and generates an array of every single Date object that falls within those booked ranges.
   const getExcludedDates = () => {
     if (!venue?.bookings || venue.bookings.length === 0) return [];
-    
+
     const excludedDates: Date[] = [];
     venue.bookings.forEach((booking) => {
       const start = new Date(booking.dateFrom);
@@ -65,7 +66,7 @@ const SpecificVenuePage: React.FC = () => {
       // Ensure timezones don't shift the dates incorrectly. This sets the time to the start of the day for both start and end dates, so we only deal with the date part when generating the excluded dates.
       start.setHours(0, 0, 0, 0);
       end.setHours(0, 0, 0, 0);
-      
+
       const currentDate = new Date(start);
       while (currentDate <= end) {
         excludedDates.push(new Date(currentDate));
@@ -104,18 +105,34 @@ const SpecificVenuePage: React.FC = () => {
   // Conditional rendering based on the loading state, error state, and whether the venue data is available. If the component is currently loading data, it displays a loading message. If there was an error during the fetch operation, it displays the error message. If the venue data was successfully fetched but is not found (e.g., if the ID is invalid), it displays a "Venue not found" message. Finally, if the venue data is successfully fetched and available, it renders the details of the venue in a structured and visually appealing layout.
   if (isLoading) {
     return (
-      <div className="text-center text-white mt-20" role="status" aria-label="Loading venue details">
+      <div
+        className="text-center text-white mt-20"
+        role="status"
+        aria-label="Loading venue details"
+      >
         Loading venue details...
       </div>
     );
   }
 
   if (error) {
-    return <div className="text-center text-red-400 mt-20" role="alert" aria-live="assertive">{error}</div>;
+    return (
+      <div
+        className="text-center text-red-400 mt-20"
+        role="alert"
+        aria-live="assertive"
+      >
+        {error}
+      </div>
+    );
   }
 
   if (!venue) {
-    return <div className="text-center text-white mt-20" role="alert">Venue not found.</div>;
+    return (
+      <div className="text-center text-white mt-20" role="alert">
+        Venue not found.
+      </div>
+    );
   }
 
   const excludedDates = getExcludedDates();
@@ -130,8 +147,14 @@ const SpecificVenuePage: React.FC = () => {
         &larr; Back to Venues
       </Link>
 
-      <div className="bg-deep-navy/40 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl" aria-labelledby="venue-heading">
-        <h1 id="venue-heading" className="text-4xl font-extrabold text-white mb-2">
+      <div
+        className="bg-deep-navy/40 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl"
+        aria-labelledby="venue-heading"
+      >
+        <h1
+          id="venue-heading"
+          className="text-4xl font-extrabold text-white mb-2"
+        >
           {venue.name}
         </h1>
         <p className="text-mint-green text-xl font-semibold mb-6">
@@ -145,15 +168,28 @@ const SpecificVenuePage: React.FC = () => {
             className="w-full h-80 object-cover rounded-xl mb-8 shadow-lg"
           />
         )}
-          {/* Venue Description and Amenities Section */}
+        {/* Venue Description and Amenities Section */}
         <div className="grid md:grid-cols-2 gap-8">
           <div aria-labelledby="description-heading">
-            <h2 id="description-heading" className="text-2xl font-bold text-white mb-4">Description</h2>
+            <h2
+              id="description-heading"
+              className="text-2xl font-bold text-white mb-4"
+            >
+              Description
+            </h2>
             <p className="text-white/80 leading-relaxed">{venue.description}</p>
           </div>
 
-          <div className="bg-white/5 p-6 rounded-lg" aria-labelledby="amenities-heading">
-            <h2 id="amenities-heading" className="text-xl font-bold text-white mb-4">Amenities</h2>
+          <div
+            className="bg-white/5 p-6 rounded-lg"
+            aria-labelledby="amenities-heading"
+          >
+            <h2
+              id="amenities-heading"
+              className="text-xl font-bold text-white mb-4"
+            >
+              Amenities
+            </h2>
             <ul className="space-y-2 text-white/90" aria-label="Amenities list">
               <li>{venue.meta.wifi ? "✅ WiFi" : "❌ WiFi"}</li>
               <li>{venue.meta.parking ? "✅ Parking" : "❌ Parking"}</li>
@@ -172,7 +208,12 @@ const SpecificVenuePage: React.FC = () => {
           className="bg-white/10 p-6 rounded-lg mt-8 border border-white/20"
           aria-labelledby="booking-heading"
         >
-          <h3 id="booking-heading" className="text-xl font-bold text-white mb-4">Book this Venue</h3>
+          <h3
+            id="booking-heading"
+            className="text-xl font-bold text-white mb-4"
+          >
+            Book this Venue
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col">
               <label
@@ -184,7 +225,7 @@ const SpecificVenuePage: React.FC = () => {
               <DatePicker
                 id="checkInDate"
                 selected={bookingData.dateFrom}
-                onChange={(date: Date | null) => 
+                onChange={(date: Date | null) =>
                   setBookingData({ ...bookingData, dateFrom: date })
                 }
                 selectsStart
@@ -209,7 +250,7 @@ const SpecificVenuePage: React.FC = () => {
               <DatePicker
                 id="checkOutDate"
                 selected={bookingData.dateTo}
-                onChange={(date: Date | null) => 
+                onChange={(date: Date | null) =>
                   setBookingData({ ...bookingData, dateTo: date })
                 }
                 selectsEnd

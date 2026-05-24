@@ -50,12 +50,15 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div 
+    <div
       className="bg-[#8b9ba4] border-4 border-blue-400 p-8 rounded-sm shadow-2xl max-w-lg w-full mx-auto"
       role="region"
       aria-labelledby="become-manager-heading"
     >
-      <h2 id="become-manager-heading" className="text-2xl font-bold text-black text-center mb-8">
+      <h2
+        id="become-manager-heading"
+        className="text-2xl font-bold text-black text-center mb-8"
+      >
         Becoming a venue manager
       </h2>
 
@@ -76,7 +79,10 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
             aria-hidden="true"
           />
         </button>
-        <p id="terms-text" className="text-black text-lg leading-snug font-medium">
+        <p
+          id="terms-text"
+          className="text-black text-lg leading-snug font-medium"
+        >
           I have read and accept the terms & conditions for becoming a venue
           manager.
         </p>

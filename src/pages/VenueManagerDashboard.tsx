@@ -83,14 +83,16 @@ const DashboardPage: React.FC = () => {
 
   // The handleDeleteVenue function allows a venue manager to permanently delete one of their listed venues. It prompts for confirmation to prevent accidental deletions. If confirmed, it makes a DELETE request to the API. On success, it alerts the user and increments the refreshTrigger to immediately update the dashboard UI, removing the deleted venue from the list.
   const handleDeleteVenue = async (venueId: string) => {
-    const confirmDelete = window.confirm("Are you sure you want to permanently delete this venue? This cannot be undone.");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to permanently delete this venue? This cannot be undone.",
+    );
     if (!confirmDelete || !accessToken) return;
 
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const apiKey = import.meta.env.VITE_API_KEY;
 
     try {
-      setIsLoading(true); 
+      setIsLoading(true);
 
       const response = await fetch(`${baseUrl}/holidaze/venues/${venueId}`, {
         method: "DELETE",
@@ -101,12 +103,11 @@ const DashboardPage: React.FC = () => {
       });
 
       if (!response.ok) throw new Error("Could not delete the venue.");
-      
+
       alert("Venue deleted successfully.");
-      
+
       // Increment the trigger to instantly refresh the dashboard data and reflect the deletion without needing to wait for a manual refresh or navigation.
-      setRefreshTrigger((prev) => prev + 1); 
-      
+      setRefreshTrigger((prev) => prev + 1);
     } catch (err) {
       alert(err instanceof Error ? err.message : "Failed to delete venue.");
       setIsLoading(false);
@@ -154,8 +155,15 @@ const DashboardPage: React.FC = () => {
   // If the data is still loading, display a loading spinner to indicate that the dashboard is being prepared. This provides feedback to the user while the necessary data is being fetched and processed before the dashboard can be displayed.
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-900" role="status" aria-label="Loading dashboard data">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green" aria-hidden="true"></div>
+      <div
+        className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-900"
+        role="status"
+        aria-label="Loading dashboard data"
+      >
+        <div
+          className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green"
+          aria-hidden="true"
+        ></div>
       </div>
     );
   }
@@ -175,23 +183,39 @@ const DashboardPage: React.FC = () => {
       style={{ backgroundImage: "url('/background.png')" }}
       role="main"
     >
-      <div className="absolute inset-0 bg-slate-900/60 z-0" aria-hidden="true"></div>
+      <div
+        className="absolute inset-0 bg-slate-900/60 z-0"
+        aria-hidden="true"
+      ></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-        <h1 id="dashboard-heading" className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 sm:mb-10 tracking-wider shadow-black drop-shadow-md">
+        <h1
+          id="dashboard-heading"
+          className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 sm:mb-10 tracking-wider shadow-black drop-shadow-md"
+        >
           VENUE MANAGER DASHBOARD
         </h1>
 
         {error && (
-          <div className="bg-red-500/80 p-4 rounded-lg text-white text-center mb-6 backdrop-blur-sm" role="alert" aria-live="assertive">
+          <div
+            className="bg-red-500/80 p-4 rounded-lg text-white text-center mb-6 backdrop-blur-sm"
+            role="alert"
+            aria-live="assertive"
+          >
             {error}
           </div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl" aria-labelledby="manage-venues-heading">
+          <div
+            className="lg:col-span-2 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl"
+            aria-labelledby="manage-venues-heading"
+          >
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-white/10 pb-4">
-              <h2 id="manage-venues-heading" className="text-xl font-bold text-white">
+              <h2
+                id="manage-venues-heading"
+                className="text-xl font-bold text-white"
+              >
                 Manage Your Venues
               </h2>
               <Link
@@ -204,7 +228,10 @@ const DashboardPage: React.FC = () => {
             </div>
 
             {venues.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar" role="list">
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar"
+                role="list"
+              >
                 {venues.map((venue) => (
                   <div
                     key={venue.id}
@@ -237,7 +264,7 @@ const DashboardPage: React.FC = () => {
                           Active
                         </span>
                       </div>
-                      
+
                       {/* Edit and Delete buttons */}
                       <div className="flex flex-col gap-1.5 mt-3">
                         <Link
@@ -247,7 +274,7 @@ const DashboardPage: React.FC = () => {
                         >
                           Edit Details
                         </Link>
-                        <button 
+                        <button
                           onClick={() => handleDeleteVenue(venue.id)}
                           aria-label={`Delete venue ${venue.name}`}
                           className="bg-red-500/20 text-red-400 text-xs font-bold py-1.5 px-3 rounded text-center hover:bg-red-500 hover:text-white transition-colors border border-red-500/50"
@@ -255,7 +282,6 @@ const DashboardPage: React.FC = () => {
                           Delete Venue
                         </button>
                       </div>
-
                     </div>
                   </div>
                 ))}
@@ -267,24 +293,41 @@ const DashboardPage: React.FC = () => {
             )}
           </div>
 
-          <div className="lg:col-span-1 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl h-fit" aria-labelledby="summary-heading">
-            <h2 id="summary-heading" className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+          <div
+            className="lg:col-span-1 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl h-fit"
+            aria-labelledby="summary-heading"
+          >
+            <h2
+              id="summary-heading"
+              className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4"
+            >
               Summary
             </h2>
             <div className="space-y-4 text-sm font-medium">
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Total Venues:</span>
-                <span className="text-white text-lg" aria-label={`${venues.length} Total Venues`}>{venues.length}</span>
+                <span
+                  className="text-white text-lg"
+                  aria-label={`${venues.length} Total Venues`}
+                >
+                  {venues.length}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Active Bookings:</span>
-                <span className="text-white text-lg" aria-label={`${upcomingBookings.length} Active Bookings`}>
+                <span
+                  className="text-white text-lg"
+                  aria-label={`${upcomingBookings.length} Active Bookings`}
+                >
                   {upcomingBookings.length}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Past Bookings:</span>
-                <span className="text-white text-lg" aria-label={`${pastBookings.length} Past Bookings`}>
+                <span
+                  className="text-white text-lg"
+                  aria-label={`${pastBookings.length} Past Bookings`}
+                >
                   {pastBookings.length}
                 </span>
               </div>
@@ -292,8 +335,14 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl overflow-hidden" aria-labelledby="manage-bookings-heading">
-          <h2 id="manage-bookings-heading" className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+        <div
+          className="bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl overflow-hidden"
+          aria-labelledby="manage-bookings-heading"
+        >
+          <h2
+            id="manage-bookings-heading"
+            className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4"
+          >
             Manage Upcoming Bookings
           </h2>
 
@@ -301,14 +350,33 @@ const DashboardPage: React.FC = () => {
             {upcomingBookings.length > 0 ? (
               <>
                 <div className="hidden md:block overflow-x-auto">
-                  <table className="w-full text-left text-sm whitespace-nowrap" aria-label="Upcoming Bookings Table">
+                  <table
+                    className="w-full text-left text-sm whitespace-nowrap"
+                    aria-label="Upcoming Bookings Table"
+                  >
                     <thead>
                       <tr className="text-slate-300 border-b border-white/10">
-                        <th className="pb-3 font-semibold" scope="col">Venue</th>
-                        <th className="pb-3 font-semibold" scope="col">Guest</th>
-                        <th className="pb-3 font-semibold" scope="col">Dates</th>
-                        <th className="pb-3 font-semibold text-center" scope="col">Guests</th>
-                        <th className="pb-3 font-semibold text-right" scope="col">Actions</th>
+                        <th className="pb-3 font-semibold" scope="col">
+                          Venue
+                        </th>
+                        <th className="pb-3 font-semibold" scope="col">
+                          Guest
+                        </th>
+                        <th className="pb-3 font-semibold" scope="col">
+                          Dates
+                        </th>
+                        <th
+                          className="pb-3 font-semibold text-center"
+                          scope="col"
+                        >
+                          Guests
+                        </th>
+                        <th
+                          className="pb-3 font-semibold text-right"
+                          scope="col"
+                        >
+                          Actions
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
@@ -320,10 +388,13 @@ const DashboardPage: React.FC = () => {
                           day: "numeric",
                           year: "numeric",
                         });
-                        const toDate = new Date(booking.dateTo).toLocaleDateString(
-                          undefined,
-                          { month: "short", day: "numeric", year: "numeric" },
-                        );
+                        const toDate = new Date(
+                          booking.dateTo,
+                        ).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        });
 
                         return (
                           <tr
@@ -370,37 +441,54 @@ const DashboardPage: React.FC = () => {
                 {/* Mobile version of the bookings table */}
                 <div className="md:hidden flex flex-col gap-4">
                   {upcomingBookings.map((booking) => {
-                    const fromDate = new Date(booking.dateFrom).toLocaleDateString(undefined, {
+                    const fromDate = new Date(
+                      booking.dateFrom,
+                    ).toLocaleDateString(undefined, {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
                     });
-                    const toDate = new Date(booking.dateTo).toLocaleDateString(undefined, {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    });
+                    const toDate = new Date(booking.dateTo).toLocaleDateString(
+                      undefined,
+                      {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      },
+                    );
 
                     return (
-                      <div key={booking.id} className="bg-slate-800/60 rounded-xl p-4 border border-white/10 flex flex-col gap-3">
+                      <div
+                        key={booking.id}
+                        className="bg-slate-800/60 rounded-xl p-4 border border-white/10 flex flex-col gap-3"
+                      >
                         <div className="flex justify-between items-start gap-2">
-                          <h3 className="font-bold text-white text-sm truncate">{booking.venueName}</h3>
+                          <h3 className="font-bold text-white text-sm truncate">
+                            {booking.venueName}
+                          </h3>
                           <span className="bg-mint-green/20 text-mint-green font-bold px-2 py-1 rounded-full text-xs whitespace-nowrap shrink-0">
                             Confirmed
                           </span>
                         </div>
-                        
+
                         <div className="grid grid-cols-2 gap-y-2 text-sm">
                           <div className="text-slate-400 text-xs">Guest</div>
-                          <div className="text-white text-right truncate">{booking.customer?.name || "Unknown Guest"}</div>
-                          
-                          <div className="text-slate-400 text-xs">Dates</div>
-                          <div className="text-white text-right text-xs whitespace-nowrap">{fromDate}
-                          <div className="text-white text-right text-xs whitespace-nowrap">{toDate}</div>
+                          <div className="text-white text-right truncate">
+                            {booking.customer?.name || "Unknown Guest"}
                           </div>
-                          
+
+                          <div className="text-slate-400 text-xs">Dates</div>
+                          <div className="text-white text-right text-xs whitespace-nowrap">
+                            {fromDate}
+                            <div className="text-white text-right text-xs whitespace-nowrap">
+                              {toDate}
+                            </div>
+                          </div>
+
                           <div className="text-slate-400 text-xs">Guests</div>
-                          <div className="text-white text-right">{booking.guests}</div>
+                          <div className="text-white text-right">
+                            {booking.guests}
+                          </div>
                         </div>
 
                         <button

@@ -18,7 +18,7 @@ const ProfilePage: React.FC = () => {
   const [bio, setBio] = useState("");
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // State for managing a selected booking in the modal 
+  // State for managing a selected booking in the modal
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
   const [editDateFrom, setEditDateFrom] = useState("");
   const [editDateTo, setEditDateTo] = useState("");
@@ -292,7 +292,11 @@ const ProfilePage: React.FC = () => {
   // While the profile data is loading, we show a centered spinner to indicate that the content is being fetched. This provides feedback to the user and improves the overall experience by preventing confusion or frustration during loading times. The spinner is styled to match the overall design of the app and is displayed in a way that keeps it visually appealing and unobtrusive while still clearly indicating that loading is in progress.
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100" role="status" aria-label="Loading profile data">
+      <div
+        className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100"
+        role="status"
+        aria-label="Loading profile data"
+      >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green"></div>
       </div>
     );
@@ -302,11 +306,19 @@ const ProfilePage: React.FC = () => {
   if (error || !profile) {
     return (
       <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100">
-        <div className="text-red-400 bg-white shadow-lg p-6 rounded-lg text-center" role="alert" aria-live="assertive">
+        <div
+          className="text-red-400 bg-white shadow-lg p-6 rounded-lg text-center"
+          role="alert"
+          aria-live="assertive"
+        >
           <p className="text-xl mb-4 text-slate-800">
             ⚠️ {error || "Profile not found"}
           </p>
-          <Link to="/" className="text-mint-green font-bold hover:underline" aria-label="Return to homepage">
+          <Link
+            to="/"
+            className="text-mint-green font-bold hover:underline"
+            aria-label="Return to homepage"
+          >
             Return Home
           </Link>
         </div>
@@ -424,9 +436,15 @@ const ProfilePage: React.FC = () => {
           </aside>
 
           {/* Main Content */}
-          <main className="col-span-1 lg:col-span-3 space-y-10 mt-12 lg:mt-24" aria-label="User Activity">
+          <main
+            className="col-span-1 lg:col-span-3 space-y-10 mt-12 lg:mt-24"
+            aria-label="User Activity"
+          >
             <section aria-labelledby="upcoming-bookings-heading">
-              <h2 id="upcoming-bookings-heading" className="text-2xl font-bold text-slate-900 mb-4 bg-white/50 inline-block px-4 py-1 rounded backdrop-blur-sm">
+              <h2
+                id="upcoming-bookings-heading"
+                className="text-2xl font-bold text-slate-900 mb-4 bg-white/50 inline-block px-4 py-1 rounded backdrop-blur-sm"
+              >
                 My Bookings
               </h2>
               {upcoming.length > 0 ? (
@@ -479,12 +497,18 @@ const ProfilePage: React.FC = () => {
             </section>
 
             <section aria-labelledby="past-bookings-heading">
-              <h2 id="past-bookings-heading" className="text-2xl font-bold text-slate-900 mb-4">
+              <h2
+                id="past-bookings-heading"
+                className="text-2xl font-bold text-slate-900 mb-4"
+              >
                 Past Bookings
               </h2>
               <div className="bg-slate-200/50 rounded-2xl p-6 min-h-37.5">
                 {past.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" role="list">
+                  <div
+                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
+                    role="list"
+                  >
                     {past.map((b) => (
                       <Link
                         to={`/venues/${b.venue?.id}`}
@@ -523,12 +547,18 @@ const ProfilePage: React.FC = () => {
 
             {profile.venueManager && (
               <section aria-labelledby="my-venues-heading">
-                <h2 id="my-venues-heading" className="text-2xl font-bold text-slate-900 mb-4">
+                <h2
+                  id="my-venues-heading"
+                  className="text-2xl font-bold text-slate-900 mb-4"
+                >
                   My Venues
                 </h2>
                 <div className="bg-slate-200/50 rounded-2xl p-6 min-h-62.5">
                   {profile.venues && profile.venues.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" role="list">
+                    <div
+                      className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                      role="list"
+                    >
                       {profile.venues.map((v) => (
                         <Link
                           to={`/venues/${v.id}`}
@@ -570,7 +600,7 @@ const ProfilePage: React.FC = () => {
 
       {/* Overlay Edit/Cancel Modal Popup */}
       {selectedBooking && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
@@ -580,7 +610,10 @@ const ProfilePage: React.FC = () => {
             {/* Modal Header */}
             <div className="bg-slate-900 p-6 text-white flex justify-between items-center">
               <div>
-                <h3 id="modal-title" className="text-lg font-bold truncate max-w-70">
+                <h3
+                  id="modal-title"
+                  className="text-lg font-bold truncate max-w-70"
+                >
                   Manage Reservation
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5 truncate">
@@ -597,7 +630,11 @@ const ProfilePage: React.FC = () => {
             </div>
 
             {/* Modal Actions Form */}
-            <form onSubmit={handleSaveBookingChange} className="p-6 space-y-5" aria-label="Edit Reservation Form">
+            <form
+              onSubmit={handleSaveBookingChange}
+              className="p-6 space-y-5"
+              aria-label="Edit Reservation Form"
+            >
               {/* DATE INPUTS */}
               <div className="grid grid-cols-2 gap-4">
                 <div>

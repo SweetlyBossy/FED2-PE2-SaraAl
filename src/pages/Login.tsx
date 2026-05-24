@@ -87,12 +87,14 @@ export default function Login() {
       style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Glassmorphism Card Container */}
-      <section 
+      <section
         aria-labelledby="login-heading"
         className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center"
       >
         <div className="mb-8">
-          <h1 id="login-heading" className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+          <h1 id="login-heading" className="text-3xl font-bold text-white mb-2">
+            Welcome Back
+          </h1>
           <p className="text-slate-300 text-sm">
             Log in to your Nordic Stay account
           </p>
@@ -100,9 +102,9 @@ export default function Login() {
 
         {/* Server Error Alert */}
         {serverError && (
-          <div 
-            role="alert" 
-            aria-live="assertive" 
+          <div
+            role="alert"
+            aria-live="assertive"
             className="w-full mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"
           >
             {serverError}

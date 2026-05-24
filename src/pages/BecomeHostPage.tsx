@@ -13,9 +13,9 @@ const BecomeHostPage: React.FC = () => {
   if (venueManager) return <Navigate to="/profile" />;
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-slate-100 flex items-center justify-center p-4 pt-24"
-      role="main" 
+      role="main"
       aria-label="Become a Host"
     >
       {/* When the API succeeds, we instantly navigate them to their new dashboard */}

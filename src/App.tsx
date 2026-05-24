@@ -4,7 +4,7 @@ import Home from "./pages/HomePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VenuesPage from "./pages/VenuesPage";
-import SpecificVenuePage from './pages/SpecificVenuePage';
+import SpecificVenuePage from "./pages/SpecificVenuePage";
 import ProfilePage from "./pages/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage";
 import BookingConfirmation from "./pages/BookingConfirmation";
@@ -29,7 +29,10 @@ export default function App() {
             <Route path="/venues/:id" element={<SpecificVenuePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/booking-confirmation" element={<BookingConfirmation />} />
+            <Route
+              path="/booking-confirmation"
+              element={<BookingConfirmation />}
+            />
             <Route path="/become-host" element={<BecomeHostPage />} />
             <Route path="/dashboard" element={<VenueManagerDashboard />} />
             <Route path="/create-venue" element={<CreateVenuePage />} />
