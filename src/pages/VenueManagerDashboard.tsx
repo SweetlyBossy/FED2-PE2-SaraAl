@@ -178,7 +178,7 @@ const DashboardPage: React.FC = () => {
       <div className="absolute inset-0 bg-slate-900/60 z-0" aria-hidden="true"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-        <h1 id="dashboard-heading" className="text-3xl md:text-4xl font-extrabold text-center mb-10 tracking-wider shadow-black drop-shadow-md">
+        <h1 id="dashboard-heading" className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-center mb-8 sm:mb-10 tracking-wider shadow-black drop-shadow-md">
           VENUE MANAGER DASHBOARD
         </h1>
 
@@ -190,14 +190,14 @@ const DashboardPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl" aria-labelledby="manage-venues-heading">
-            <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-white/10 pb-4">
               <h2 id="manage-venues-heading" className="text-xl font-bold text-white">
                 Manage Your Venues
               </h2>
               <Link
                 to="/create-venue"
                 aria-label="Create a New Venue"
-                className="bg-mint-green text-slate-900 font-bold px-4 py-2 rounded-full text-sm hover:bg-emerald-400 transition-colors shadow-lg"
+                className="bg-mint-green text-slate-900 font-bold px-4 py-2 rounded-full text-sm hover:bg-emerald-400 transition-colors shadow-lg w-full sm:w-auto text-center"
               >
                 + Create New Venue
               </Link>
@@ -209,18 +209,18 @@ const DashboardPage: React.FC = () => {
                   <div
                     key={venue.id}
                     role="listitem"
-                    className="bg-slate-800/60 rounded-xl flex overflow-hidden border border-white/10 hover:border-mint-green/50 transition-colors"
+                    className="bg-slate-800/60 rounded-xl flex flex-col sm:flex-row overflow-hidden border border-white/10 hover:border-mint-green/50 transition-colors"
                   >
                     <img
                       src={venue.media[0]?.url || "/fallback-image.jpg"}
                       alt={venue.name}
-                      className="w-1/3 object-cover"
+                      className="w-full sm:w-1/3 h-32 sm:h-auto object-cover"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
                           "/fallback-image.jpg";
                       }}
                     />
-                    <div className="w-2/3 p-3 flex flex-col justify-between">
+                    <div className="w-full sm:w-2/3 p-3 flex flex-col justify-between">
                       <div>
                         <h3 className="font-bold text-sm truncate">
                           {venue.name}
@@ -297,72 +297,124 @@ const DashboardPage: React.FC = () => {
             Manage Upcoming Bookings
           </h2>
 
-          <div className="overflow-x-auto">
+          <div>
             {upcomingBookings.length > 0 ? (
-              <table className="w-full text-left text-sm whitespace-nowrap" aria-label="Upcoming Bookings Table">
-                <thead>
-                  <tr className="text-slate-300 border-b border-white/10">
-                    <th className="pb-3 font-semibold" scope="col">Venue</th>
-                    <th className="pb-3 font-semibold" scope="col">Guest</th>
-                    <th className="pb-3 font-semibold" scope="col">Dates</th>
-                    <th className="pb-3 font-semibold text-center" scope="col">Guests</th>
-                    <th className="pb-3 font-semibold text-right" scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5">
+              <>
+                <div className="hidden md:block overflow-x-auto">
+                  <table className="w-full text-left text-sm whitespace-nowrap" aria-label="Upcoming Bookings Table">
+                    <thead>
+                      <tr className="text-slate-300 border-b border-white/10">
+                        <th className="pb-3 font-semibold" scope="col">Venue</th>
+                        <th className="pb-3 font-semibold" scope="col">Guest</th>
+                        <th className="pb-3 font-semibold" scope="col">Dates</th>
+                        <th className="pb-3 font-semibold text-center" scope="col">Guests</th>
+                        <th className="pb-3 font-semibold text-right" scope="col">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-white/5">
+                      {upcomingBookings.map((booking) => {
+                        const fromDate = new Date(
+                          booking.dateFrom,
+                        ).toLocaleDateString(undefined, {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        });
+                        const toDate = new Date(booking.dateTo).toLocaleDateString(
+                          undefined,
+                          { month: "short", day: "numeric", year: "numeric" },
+                        );
+
+                        return (
+                          <tr
+                            key={booking.id}
+                            className="hover:bg-white/5 transition-colors"
+                          >
+                            <td className="py-4 pr-4">
+                              <p className="font-bold text-white truncate max-w-37.5">
+                                {booking.venueName}
+                              </p>
+                            </td>
+                            <td className="py-4 pr-4">
+                              <p className="text-slate-300">
+                                {booking.customer?.name || "Unknown Guest"}
+                              </p>
+                            </td>
+                            <td className="py-4 pr-4">
+                              <p className="text-slate-300">
+                                {fromDate} — {toDate}
+                              </p>
+                            </td>
+                            <td className="py-4 px-4 text-center">
+                              <p className="text-slate-300">{booking.guests}</p>
+                            </td>
+                            <td className="py-4 pl-4 text-right flex justify-end gap-2">
+                              <span className="bg-mint-green/20 text-mint-green font-bold px-4 py-1.5 rounded-full text-xs flex items-center">
+                                Confirmed
+                              </span>
+                              <button
+                                onClick={() => handleDeclineBooking(booking.id)}
+                                aria-label={`Decline or cancel booking for ${booking.customer?.name || "Unknown Guest"} at ${booking.venueName}`}
+                                className="bg-red-500/80 hover:bg-red-500 text-white font-bold px-4 py-1.5 rounded-full text-xs transition-colors border border-red-400"
+                              >
+                                Decline / Cancel
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* Mobile version of the bookings table */}
+                <div className="md:hidden flex flex-col gap-4">
                   {upcomingBookings.map((booking) => {
-                    const fromDate = new Date(
-                      booking.dateFrom,
-                    ).toLocaleDateString(undefined, {
+                    const fromDate = new Date(booking.dateFrom).toLocaleDateString(undefined, {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
                     });
-                    const toDate = new Date(booking.dateTo).toLocaleDateString(
-                      undefined,
-                      { month: "short", day: "numeric", year: "numeric" },
-                    );
+                    const toDate = new Date(booking.dateTo).toLocaleDateString(undefined, {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    });
 
                     return (
-                      <tr
-                        key={booking.id}
-                        className="hover:bg-white/5 transition-colors"
-                      >
-                        <td className="py-4 pr-4">
-                          <p className="font-bold text-white truncate max-w-37.5">
-                            {booking.venueName}
-                          </p>
-                        </td>
-                        <td className="py-4 pr-4">
-                          <p className="text-slate-300">
-                            {booking.customer?.name || "Unknown Guest"}
-                          </p>
-                        </td>
-                        <td className="py-4 pr-4">
-                          <p className="text-slate-300">
-                            {fromDate} — {toDate}
-                          </p>
-                        </td>
-                        <td className="py-4 px-4 text-center">
-                          <p className="text-slate-300">{booking.guests}</p>
-                        </td>
-                        <td className="py-4 pl-4 text-right flex justify-end gap-2">
-                          <span className="bg-mint-green/20 text-mint-green font-bold px-4 py-1.5 rounded-full text-xs flex items-center">
+                      <div key={booking.id} className="bg-slate-800/60 rounded-xl p-4 border border-white/10 flex flex-col gap-3">
+                        <div className="flex justify-between items-start gap-2">
+                          <h3 className="font-bold text-white text-sm truncate">{booking.venueName}</h3>
+                          <span className="bg-mint-green/20 text-mint-green font-bold px-2 py-1 rounded-full text-xs whitespace-nowrap shrink-0">
                             Confirmed
                           </span>
-                          <button
-                            onClick={() => handleDeclineBooking(booking.id)}
-                            aria-label={`Decline or cancel booking for ${booking.customer?.name || "Unknown Guest"} at ${booking.venueName}`}
-                            className="bg-red-500/80 hover:bg-red-500 text-white font-bold px-4 py-1.5 rounded-full text-xs transition-colors border border-red-400"
-                          >
-                            Decline / Cancel
-                          </button>
-                        </td>
-                      </tr>
+                        </div>
+                        
+                        <div className="grid grid-cols-2 gap-y-2 text-sm">
+                          <div className="text-slate-400 text-xs">Guest</div>
+                          <div className="text-white text-right truncate">{booking.customer?.name || "Unknown Guest"}</div>
+                          
+                          <div className="text-slate-400 text-xs">Dates</div>
+                          <div className="text-white text-right text-xs whitespace-nowrap">{fromDate}
+                          <div className="text-white text-right text-xs whitespace-nowrap">{toDate}</div>
+                          </div>
+                          
+                          <div className="text-slate-400 text-xs">Guests</div>
+                          <div className="text-white text-right">{booking.guests}</div>
+                        </div>
+
+                        <button
+                          onClick={() => handleDeclineBooking(booking.id)}
+                          aria-label={`Decline or cancel booking for ${booking.customer?.name || "Unknown Guest"} at ${booking.venueName}`}
+                          className="mt-2 w-full bg-red-500/80 hover:bg-red-500 text-white font-bold px-4 py-2 rounded-full text-xs transition-colors border border-red-400 text-center"
+                        >
+                          Decline / Cancel
+                        </button>
+                      </div>
                     );
                   })}
-                </tbody>
-              </table>
+                </div>
+              </>
             ) : (
               <div className="text-center py-10 text-slate-300">
                 <p>You have no upcoming bookings.</p>
