@@ -99,14 +99,15 @@ const CreateVenuePage: React.FC = () => {
   if (!venueManager) return <Navigate to="/profile" />;
 
   return (
-    <div className="min-h-screen bg-white font-inter pb-20">
+    <div className="min-h-screen bg-white font-inter pb-20" role="main">
       
       {/* Curved Hero Section */}
       <div 
         className="relative h-64 md:h-80 w-full bg-cover bg-center rounded-b-[4rem] md:rounded-b-[6rem] shadow-md flex items-center justify-center pt-16"
         style={{ backgroundImage: "url('/background.png')" }} 
+        role="banner"
       >
-        <div className="absolute inset-0 bg-slate-900/40 rounded-b-[4rem] md:rounded-b-[6rem]"></div>
+        <div className="absolute inset-0 bg-slate-900/40 rounded-b-[4rem] md:rounded-b-[6rem]" aria-hidden="true"></div>
         <h1 className="relative z-10 text-3xl md:text-5xl font-bold text-white tracking-wide">
           Create New Venue
         </h1>
@@ -114,23 +115,24 @@ const CreateVenuePage: React.FC = () => {
 
       <div className="max-w-2xl mx-auto px-6 mt-12 text-black">
         {error && (
-          <div className="bg-red-100 p-4 rounded text-red-600 text-center mb-6 border border-red-300">
+          <div className="bg-red-100 p-4 rounded text-red-600 text-center mb-6 border border-red-300" role="alert" aria-live="assertive">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-10">
+        <form onSubmit={handleSubmit} className="space-y-10" aria-label="Create venue form">
           
           {/* SECTION 1: Venue Information */}
-          <section>
-            <h2 className="text-xl font-bold mb-6">1. Venue Information</h2>
+          <section aria-labelledby="section1-heading">
+            <h2 id="section1-heading" className="text-xl font-bold mb-6">1. Venue Information</h2>
             
             <div className="space-y-6">
               <div className="flex items-end border-b border-slate-800 pb-1 w-full md:w-2/3">
-                <span className="text-teal-600 mr-2 mb-1">
+                <span className="text-teal-600 mr-2 mb-1" aria-hidden="true">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                 </span>
                 <input 
+                  aria-label="Venue Name"
                   type="text" name="name" required placeholder="Venue Name"
                   value={formData.name} onChange={handleChange}
                   className="w-full appearance-none bg-transparent border-none text-sm focus:outline-none placeholder-slate-500"
@@ -138,12 +140,13 @@ const CreateVenuePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1">Capacity</label>
+                <label htmlFor="maxGuests" className="block text-xs font-semibold mb-1">Capacity</label>
                 <div className="flex items-end border-b border-slate-800 pb-1 w-32">
-                  <span className="text-teal-600 mr-2 mb-1">
+                  <span className="text-teal-600 mr-2 mb-1" aria-hidden="true">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                   </span>
                   <input 
+                  id="maxGuests"
                     type="number" name="maxGuests" min="1" required placeholder="Capacity"
                     value={formData.maxGuests || ""} onChange={handleChange}
                     className="w-full appearance-none bg-transparent border-none text-sm focus:outline-none placeholder-slate-500"
@@ -152,12 +155,13 @@ const CreateVenuePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1">Address</label>
+                <label htmlFor="address" className="block text-xs font-semibold mb-1">Address</label>
                 <div className="flex items-end border-b border-slate-800 pb-1 w-full md:w-2/3">
-                  <span className="text-teal-600 mr-2 mb-1">
+                  <span className="text-teal-600 mr-2 mb-1" aria-hidden="true">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                   </span>
                   <input 
+                  id="address"
                     type="text" name="address" placeholder="Location"
                     value={formData.address} onChange={handleChange}
                     className="w-full appearance-none bg-transparent border-none text-sm focus:outline-none placeholder-slate-500"
@@ -166,8 +170,9 @@ const CreateVenuePage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold mb-1">Description</label>
+                <label htmlFor="description" className="block text-xs font-semibold mb-1">Description</label>
                 <textarea 
+                  id="description"
                   name="description" required placeholder="Enter wanted description here"
                   value={formData.description} onChange={handleChange}
                   className="w-full md:w-2/3 bg-transparent border border-blue-100 rounded p-2 text-sm focus:outline-none focus:border-teal-400 h-24 resize-none placeholder-slate-500"
@@ -177,10 +182,11 @@ const CreateVenuePage: React.FC = () => {
           </section>
 
           {/* SECTION 2: Images & Price */}
-          <section>
-            <h2 className="text-xl font-bold mb-4">2. Images</h2>
+          <section aria-labelledby="section2-heading">
+            <h2 id="section2-heading" className="text-xl font-bold mb-4">2. Images</h2>
             <div className="space-y-6">
               <input 
+                aria-label="Image URL"
                 type="url" name="mediaUrl" placeholder="Enter a public URL"
                 value={formData.mediaUrl} onChange={handleChange}
                 className="w-full md:w-1/2 bg-transparent border border-blue-100 rounded p-2 text-sm focus:outline-none focus:border-teal-400 placeholder-slate-500"
@@ -188,8 +194,9 @@ const CreateVenuePage: React.FC = () => {
               
               <div className="w-32">
                 <div className="flex items-end border-b border-slate-800 pb-1">
-                  <span className="text-sm font-semibold mr-2 text-slate-800">Price</span>
+                  <span className="text-sm font-semibold mr-2 text-slate-800" aria-hidden="true">Price</span>
                   <input 
+                    aria-label="Price per night"
                     type="number" name="price" min="1" required
                     value={formData.price || ""} onChange={handleChange}
                     className="w-full appearance-none bg-transparent border-none text-sm text-center focus:outline-none"
@@ -200,15 +207,16 @@ const CreateVenuePage: React.FC = () => {
           </section>
 
           {/* SECTION 3: Contact */}
-          <section>
-            <h2 className="text-xl font-bold mb-4">3. Contact</h2>
+          <section aria-labelledby="section3-heading">
+            <h2 id="section3-heading" className="text-xl font-bold mb-4">3. Contact</h2>
             <div>
-              <label className="block text-xs font-semibold mb-1">Contact Number</label>
+              <label htmlFor="phone" className="block text-xs font-semibold mb-1">Contact Number</label>
               <div className="flex items-end border-b border-slate-800 pb-1 w-48">
-                <span className="text-teal-600 mr-2 mb-1">
+                <span className="text-teal-600 mr-2 mb-1" aria-hidden="true">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                 </span>
                 <input 
+                  id="phone"
                   type="tel" name="phone" placeholder="Telefon"
                   value={formData.phone} onChange={handleChange}
                   className="w-full appearance-none bg-transparent border-none text-sm focus:outline-none placeholder-slate-500"
@@ -218,15 +226,17 @@ const CreateVenuePage: React.FC = () => {
           </section>
 
           {/* SECTION 4: Amenities */}
-          <section>
-            <h2 className="text-xl font-bold mb-4">4. Amenities</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <section aria-labelledby="section4-heading">
+            <h2 id="section4-heading" className="text-xl font-bold mb-4">4. Amenities</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4" role="group" aria-labelledby="section4-heading">
               {['wifi', 'parking', 'breakfast', 'pets'].map((amenity) => (
                 <label 
                   key={amenity} 
+                  htmlFor={`amenity-${amenity}`}
                   className="flex items-center gap-2 cursor-pointer p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
                 >
                   <input 
+                    id={`amenity-${amenity}`}
                     type="checkbox" 
                     name={amenity}
                     checked={formData.meta[amenity as keyof typeof formData.meta]}
@@ -244,6 +254,7 @@ const CreateVenuePage: React.FC = () => {
             <button 
               type="submit" 
               disabled={isSubmitting}
+              aria-busy={isSubmitting}
               className="bg-mint-green text-slate-900 font-bold py-3 px-8 rounded-full text-sm hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-50"
             >
               {isSubmitting ? "Processing..." : "Create & Publish Venue"}

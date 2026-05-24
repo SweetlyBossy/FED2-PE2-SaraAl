@@ -154,8 +154,8 @@ const DashboardPage: React.FC = () => {
   // If the data is still loading, display a loading spinner to indicate that the dashboard is being prepared. This provides feedback to the user while the necessary data is being fetched and processed before the dashboard can be displayed.
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green"></div>
+      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-900" role="status" aria-label="Loading dashboard data">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green" aria-hidden="true"></div>
       </div>
     );
   }
@@ -173,28 +173,30 @@ const DashboardPage: React.FC = () => {
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat font-inter relative pb-20 pt-28"
       style={{ backgroundImage: "url('/background.png')" }}
+      role="main"
     >
-      <div className="absolute inset-0 bg-slate-900/60 z-0"></div>
+      <div className="absolute inset-0 bg-slate-900/60 z-0" aria-hidden="true"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-center mb-10 tracking-wider shadow-black drop-shadow-md">
+        <h1 id="dashboard-heading" className="text-3xl md:text-4xl font-extrabold text-center mb-10 tracking-wider shadow-black drop-shadow-md">
           VENUE MANAGER DASHBOARD
         </h1>
 
         {error && (
-          <div className="bg-red-500/80 p-4 rounded-lg text-white text-center mb-6 backdrop-blur-sm">
+          <div className="bg-red-500/80 p-4 rounded-lg text-white text-center mb-6 backdrop-blur-sm" role="alert" aria-live="assertive">
             {error}
           </div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl">
+          <div className="lg:col-span-2 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl" aria-labelledby="manage-venues-heading">
             <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-              <h2 className="text-xl font-bold text-white">
+              <h2 id="manage-venues-heading" className="text-xl font-bold text-white">
                 Manage Your Venues
               </h2>
               <Link
                 to="/create-venue"
+                aria-label="Create a New Venue"
                 className="bg-mint-green text-slate-900 font-bold px-4 py-2 rounded-full text-sm hover:bg-emerald-400 transition-colors shadow-lg"
               >
                 + Create New Venue
@@ -202,10 +204,11 @@ const DashboardPage: React.FC = () => {
             </div>
 
             {venues.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-96 overflow-y-auto pr-2 custom-scrollbar" role="list">
                 {venues.map((venue) => (
                   <div
                     key={venue.id}
+                    role="listitem"
                     className="bg-slate-800/60 rounded-xl flex overflow-hidden border border-white/10 hover:border-mint-green/50 transition-colors"
                   >
                     <img
@@ -223,7 +226,7 @@ const DashboardPage: React.FC = () => {
                           {venue.name}
                         </h3>
                         <p className="text-xs text-slate-400 flex items-center gap-1 mt-1">
-                          📍{" "}
+                          <span aria-hidden="true">📍</span>{" "}
                           {venue.location.address ||
                             venue.location.city ||
                             "Unknown"}
@@ -239,12 +242,14 @@ const DashboardPage: React.FC = () => {
                       <div className="flex flex-col gap-1.5 mt-3">
                         <Link
                           to={`/edit-venue/${venue.id}`}
+                          aria-label={`Edit details for ${venue.name}`}
                           className="bg-mint-green/90 text-slate-900 text-xs font-bold py-1.5 px-3 rounded text-center hover:bg-mint-green transition-colors"
                         >
                           Edit Details
                         </Link>
                         <button 
                           onClick={() => handleDeleteVenue(venue.id)}
+                          aria-label={`Delete venue ${venue.name}`}
                           className="bg-red-500/20 text-red-400 text-xs font-bold py-1.5 px-3 rounded text-center hover:bg-red-500 hover:text-white transition-colors border border-red-500/50"
                         >
                           Delete Venue
@@ -262,24 +267,24 @@ const DashboardPage: React.FC = () => {
             )}
           </div>
 
-          <div className="lg:col-span-1 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl h-fit">
-            <h2 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+          <div className="lg:col-span-1 bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl h-fit" aria-labelledby="summary-heading">
+            <h2 id="summary-heading" className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
               Summary
             </h2>
             <div className="space-y-4 text-sm font-medium">
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Total Venues:</span>
-                <span className="text-white text-lg">{venues.length}</span>
+                <span className="text-white text-lg" aria-label={`${venues.length} Total Venues`}>{venues.length}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Active Bookings:</span>
-                <span className="text-white text-lg">
+                <span className="text-white text-lg" aria-label={`${upcomingBookings.length} Active Bookings`}>
                   {upcomingBookings.length}
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-300">Past Bookings:</span>
-                <span className="text-white text-lg">
+                <span className="text-white text-lg" aria-label={`${pastBookings.length} Past Bookings`}>
                   {pastBookings.length}
                 </span>
               </div>
@@ -287,21 +292,21 @@ const DashboardPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl overflow-hidden">
-          <h2 className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
+        <div className="bg-[rgba(177,197,211,0.2)] backdrop-blur-md border border-white/20 rounded-2xl p-6 shadow-xl overflow-hidden" aria-labelledby="manage-bookings-heading">
+          <h2 id="manage-bookings-heading" className="text-xl font-bold text-white mb-6 border-b border-white/10 pb-4">
             Manage Upcoming Bookings
           </h2>
 
           <div className="overflow-x-auto">
             {upcomingBookings.length > 0 ? (
-              <table className="w-full text-left text-sm whitespace-nowrap">
+              <table className="w-full text-left text-sm whitespace-nowrap" aria-label="Upcoming Bookings Table">
                 <thead>
                   <tr className="text-slate-300 border-b border-white/10">
-                    <th className="pb-3 font-semibold">Venue</th>
-                    <th className="pb-3 font-semibold">Guest</th>
-                    <th className="pb-3 font-semibold">Dates</th>
-                    <th className="pb-3 font-semibold text-center">Guests</th>
-                    <th className="pb-3 font-semibold text-right">Actions</th>
+                    <th className="pb-3 font-semibold" scope="col">Venue</th>
+                    <th className="pb-3 font-semibold" scope="col">Guest</th>
+                    <th className="pb-3 font-semibold" scope="col">Dates</th>
+                    <th className="pb-3 font-semibold text-center" scope="col">Guests</th>
+                    <th className="pb-3 font-semibold text-right" scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -347,6 +352,7 @@ const DashboardPage: React.FC = () => {
                           </span>
                           <button
                             onClick={() => handleDeclineBooking(booking.id)}
+                            aria-label={`Decline or cancel booking for ${booking.customer?.name || "Unknown Guest"} at ${booking.venueName}`}
                             className="bg-red-500/80 hover:bg-red-500 text-white font-bold px-4 py-1.5 rounded-full text-xs transition-colors border border-red-400"
                           >
                             Decline / Cancel

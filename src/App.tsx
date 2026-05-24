@@ -20,7 +20,7 @@ export default function App() {
     <BrowserRouter>
       <div className="flex flex-col min-h-screen bg-slate-900">
         <Header />
-        <main className="flex-grow pt-20">
+        <main id="main-content" className="flex-grow pt-20">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

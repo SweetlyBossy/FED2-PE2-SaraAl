@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={`${baseClasses} ${variants[variant]} ${className}`}
+      aria-disabled={props.disabled}
       {...props}
     >
       {children}

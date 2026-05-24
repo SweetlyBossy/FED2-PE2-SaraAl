@@ -8,7 +8,7 @@ export default function Home() {
   const { isAuthenticated } = useAuth();
 
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-screen bg-white font-inter" role="main">
       {/* HERO SECTION
         Uses a background image with a rounded bottom. 
       */}
@@ -18,13 +18,14 @@ export default function Home() {
           backgroundImage: "url('/box-filler.png')",
           minHeight: "40vh",
         }}
+        aria-labelledby="hero-heading"
       >
         {/* Dark overlay to make text readable */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-black/30" aria-hidden="true"></div>
 
         {/* Hero Content */}
         <div className="relative z-10 flex-grow flex flex-col items-center justify-center text-center px-4 pt-10 pb-20">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+          <h1 id="hero-heading" className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
             Experience the Northern Lights
           </h1>
           <p className="text-lg md:text-xl text-slate-100 mb-8 max-w-2xl">
@@ -33,12 +34,12 @@ export default function Home() {
 
           <div className="flex gap-4">
             {/* The primary variant uses your deep-navy style */}
-            <Link to="/venues">
+            <Link to="/venues" aria-label="Browse available venues">
               <Button variant="primary" className="rounded-full px-8">
                 Get Started
               </Button>
             </Link>
-            <Button variant="glass" className="rounded-full px-8">
+            <Button variant="glass" className="rounded-full px-8" aria-label="Learn more about Nordic Stay">
               Learn More
             </Button>
           </div>
@@ -47,14 +48,14 @@ export default function Home() {
 
       {/* FEATURES SECTION
        */}
-      <section className="max-w-6xl mx-auto px-6 py-20 text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#1e293b] mb-12">
+      <section className="max-w-6xl mx-auto px-6 py-20 text-center" aria-labelledby="features-heading">
+        <h2 id="features-heading" className="text-2xl md:text-3xl font-bold text-[#1e293b] mb-12">
           Our Features
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left" role="list">
           {/* Card 1 */}
-          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow" role="listitem">
             <img
               src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?q=80&w=600&auto=format&fit=crop"
               alt="Cabins"
@@ -68,7 +69,7 @@ export default function Home() {
           </div>
 
           {/* Card 2 */}
-          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow" role="listitem">
             <img
               src="https://images.unsplash.com/photo-1516681100942-77d8e7f9dd97?q=80&w=600&auto=format&fit=crop"
               alt="Local Experiences"
@@ -85,7 +86,7 @@ export default function Home() {
           </div>
 
           {/* Card 3 */}
-          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow">
+          <div className="flex flex-col h-full shadow-sm hover:shadow-md transition-shadow" role="listitem">
             <img
               src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=600&auto=format&fit=crop"
               alt="Luxury Stays"
@@ -103,13 +104,13 @@ export default function Home() {
         </div>
       </section>
       {/* CALL TO ACTION SECTION */}
-      <section className="max-w-5xl mx-auto px-6 pb-20">
+      <section className="max-w-5xl mx-auto px-6 pb-20" aria-labelledby="cta-heading">
         <div className="bg-[#e2e8f0] rounded-sm p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm border border-gray-200">
           {isAuthenticated ? (
             /* --- WHAT LOGGED IN USERS SEE --- */
             <div className="w-full flex flex-col items-center text-center gap-6">
               <div className="text-center">
-                <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
+                <h2 id="cta-heading" className="text-xl md:text-2xl font-bold text-gray-900 mb-1">
                   Your Next Getaway Awaits!
                 </h2>
                 <p className="text-gray-600 text-sm">
@@ -118,7 +119,7 @@ export default function Home() {
               </div>
 
               <div className="flex w-full md:w-auto">
-                <Link to="/venues" className="w-full sm:w-auto">
+                <Link to="/venues" className="w-full sm:w-auto" aria-label="Book your venue">
                   <Button
                     variant="action"
                     className="w-full rounded-full px-12 py-3 text-lg border-3"
@@ -132,7 +133,7 @@ export default function Home() {
             /* --- WHAT GUESTS (LOGGED OUT) SEE --- */
             <>
               <div className="text-center md:text-left">
-                <h2 className="text-xl font-bold text-gray-900 mb-1">
+                <h2 id="cta-heading" className="text-xl font-bold text-gray-900 mb-1">
                   Ready for an adventure?
                 </h2>
                 <p className="text-gray-600 text-sm">
@@ -141,7 +142,7 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                <Link to="/register" className="w-full sm:w-auto">
+                <Link to="/register" className="w-full sm:w-auto" aria-label="Register for an account">
                   <Button
                     variant="action"
                     className="w-full rounded-full px-8 py-2.5"
@@ -150,7 +151,10 @@ export default function Home() {
                   </Button>
                 </Link>
 
-                <button className="w-full sm:w-auto px-8 py-2.5 rounded-full border border-gray-400 text-gray-700 font-semibold hover:bg-gray-300 transition-colors">
+                <button 
+                  className="w-full sm:w-auto px-8 py-2.5 rounded-full border border-gray-400 text-gray-700 font-semibold hover:bg-gray-300 transition-colors"
+                  aria-label="Contact our support team"
+                >
                   Contact Us
                 </button>
               </div>

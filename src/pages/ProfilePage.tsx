@@ -292,7 +292,7 @@ const ProfilePage: React.FC = () => {
   // While the profile data is loading, we show a centered spinner to indicate that the content is being fetched. This provides feedback to the user and improves the overall experience by preventing confusion or frustration during loading times. The spinner is styled to match the overall design of the app and is displayed in a way that keeps it visually appealing and unobtrusive while still clearly indicating that loading is in progress.
   if (isLoading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100">
+      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100" role="status" aria-label="Loading profile data">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green"></div>
       </div>
     );
@@ -302,11 +302,11 @@ const ProfilePage: React.FC = () => {
   if (error || !profile) {
     return (
       <div className="min-h-screen pt-24 pb-12 flex justify-center items-center bg-slate-100">
-        <div className="text-red-400 bg-white shadow-lg p-6 rounded-lg text-center">
+        <div className="text-red-400 bg-white shadow-lg p-6 rounded-lg text-center" role="alert" aria-live="assertive">
           <p className="text-xl mb-4 text-slate-800">
             ⚠️ {error || "Profile not found"}
           </p>
-          <Link to="/" className="text-mint-green font-bold hover:underline">
+          <Link to="/" className="text-mint-green font-bold hover:underline" aria-label="Return to homepage">
             Return Home
           </Link>
         </div>
@@ -337,6 +337,8 @@ const ProfilePage: React.FC = () => {
       <div
         className="h-80 w-full bg-cover bg-center shadow-inner relative z-0"
         style={{ backgroundImage: "url('/box-filler.png')" }}
+        role="banner"
+        aria-hidden="true"
       >
         <div className="absolute inset-0 bg-slate-900/30"></div>
       </div>
@@ -344,13 +346,13 @@ const ProfilePage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Column: Profile Details & Settings */}
-          <aside className="lg:col-span-1">
+          <aside className="lg:col-span-1" aria-label="User Profile Settings">
             <div className="bg-deep-navy/40 border border-white/10 rounded-2xl p-6 backdrop-blur-md shadow-xl text-center">
               {/* Avatar */}
               <div className="relative inline-block mb-4">
                 <img
                   src={profile.avatar?.url || "/fallback-avatar.png"}
-                  alt={profile.name}
+                  alt={`${profile.name}'s profile avatar`}
                   className="w-32 h-32 mx-auto rounded-full object-cover border-4 border-mint-green shadow-lg"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = "/fallback-avatar.png";
@@ -363,13 +365,14 @@ const ProfilePage: React.FC = () => {
                 {profile.name}
               </h1>
 
-              <hr className="border-white/10 mb-6" />
+              <hr className="border-white/10 mb-6" aria-hidden="true" />
 
               {/* Unified Bio & Avatar Update Form */}
               <div className="text-left space-y-4">
                 <form
                   onSubmit={handleUpdateProfile}
                   className="flex flex-col gap-4"
+                  aria-label="Update Profile Form"
                 >
                   {/* Bio Input Section */}
                   <div>
@@ -410,6 +413,7 @@ const ProfilePage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isUpdating}
+                    aria-busy={isUpdating}
                     className="w-full bg-mint-green text-deep-navy font-bold py-2 rounded-lg text-sm hover:opacity-90 disabled:opacity-50 transition-colors mt-2"
                   >
                     {isUpdating ? "Saving..." : "Save Changes"}
@@ -420,22 +424,23 @@ const ProfilePage: React.FC = () => {
           </aside>
 
           {/* Main Content */}
-          <main className="col-span-1 lg:col-span-3 space-y-10 mt-12 lg:mt-24">
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4 bg-white/50 inline-block px-4 py-1 rounded backdrop-blur-sm">
+          <main className="col-span-1 lg:col-span-3 space-y-10 mt-12 lg:mt-24" aria-label="User Activity">
+            <section aria-labelledby="upcoming-bookings-heading">
+              <h2 id="upcoming-bookings-heading" className="text-2xl font-bold text-slate-900 mb-4 bg-white/50 inline-block px-4 py-1 rounded backdrop-blur-sm">
                 My Bookings
               </h2>
               {upcoming.length > 0 ? (
-                <div className="space-y-6">
+                <div className="space-y-6" role="list">
                   {upcoming.map((b) => (
                     <div
                       key={b.id}
+                      role="listitem"
                       className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100 flex flex-col relative group"
                     >
                       <img
                         src={b.venue?.media[0]?.url || "/fallback-image.jpg"}
                         className="w-full h-64 object-cover bg-slate-200"
-                        alt={b.venue?.name}
+                        alt={`Image for ${b.venue?.name}`}
                         onError={(e) => {
                           (e.target as HTMLImageElement).src =
                             "/fallback-image.jpg";
@@ -446,6 +451,7 @@ const ProfilePage: React.FC = () => {
                       <div className="absolute bottom-4 left-4 z-20">
                         <button
                           onClick={() => openEditModal(b)}
+                          aria-label={`Edit or Cancel booking for ${b.venue?.name}`}
                           className="bg-mint-green text-deep-navy font-bold px-6 py-2 rounded-full hover:bg-emerald-400 transition-colors shadow-md text-sm"
                         >
                           ⚙️ Edit / Cancel
@@ -456,6 +462,7 @@ const ProfilePage: React.FC = () => {
                       <div className="absolute bottom-4 right-4 z-20">
                         <Link
                           to={`/venues/${b.venue?.id}`}
+                          aria-label={`View details for ${b.venue?.name}`}
                           className="bg-slate-400/90 backdrop-blur-sm text-white font-bold px-8 py-2 rounded-full shadow-md text-sm hover:bg-slate-500 transition-colors"
                         >
                           Details
@@ -471,23 +478,25 @@ const ProfilePage: React.FC = () => {
               )}
             </section>
 
-            <section>
-              <h2 className="text-2xl font-bold text-slate-900 mb-4">
+            <section aria-labelledby="past-bookings-heading">
+              <h2 id="past-bookings-heading" className="text-2xl font-bold text-slate-900 mb-4">
                 Past Bookings
               </h2>
               <div className="bg-slate-200/50 rounded-2xl p-6 min-h-37.5">
                 {past.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" role="list">
                     {past.map((b) => (
                       <Link
                         to={`/venues/${b.venue?.id}`}
                         key={b.id}
+                        role="listitem"
+                        aria-label={`View past booking for ${b.venue?.name || "Unknown"}`}
                         className="bg-white rounded-xl shadow-sm overflow-hidden flex h-24 border border-slate-100 p-2 hover:bg-slate-50 transition-colors cursor-pointer"
                       >
                         <img
                           src={b.venue?.media[0]?.url || "/fallback-image.jpg"}
                           className="h-full w-1/3 object-cover rounded"
-                          alt={b.venue?.name}
+                          alt={`Image for ${b.venue?.name || "Unknown venue"}`}
                           onError={(e) => {
                             (e.target as HTMLImageElement).src =
                               "/fallback-image.jpg";
@@ -513,17 +522,19 @@ const ProfilePage: React.FC = () => {
             </section>
 
             {profile.venueManager && (
-              <section>
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              <section aria-labelledby="my-venues-heading">
+                <h2 id="my-venues-heading" className="text-2xl font-bold text-slate-900 mb-4">
                   My Venues
                 </h2>
                 <div className="bg-slate-200/50 rounded-2xl p-6 min-h-62.5">
                   {profile.venues && profile.venues.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6" role="list">
                       {profile.venues.map((v) => (
                         <Link
                           to={`/venues/${v.id}`}
                           key={v.id}
+                          role="listitem"
+                          aria-label={`View your venue: ${v.name}`}
                           className="block bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-slate-100 pb-16 relative cursor-pointer"
                         >
                           <img
@@ -536,7 +547,7 @@ const ProfilePage: React.FC = () => {
                                 "/fallback-image.jpg";
                             }}
                           />
-                          <div className="h-44"></div>
+                          <div className="h-44" aria-hidden="true"></div>
                           <div className="px-6 pb-4">
                             <h4 className="font-bold text-slate-800">
                               {v.name}
@@ -559,12 +570,17 @@ const ProfilePage: React.FC = () => {
 
       {/* Overlay Edit/Cancel Modal Popup */}
       {selectedBooking && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+        <div 
+          className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+        >
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-100 animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="bg-slate-900 p-6 text-white flex justify-between items-center">
               <div>
-                <h3 className="text-lg font-bold truncate max-w-70">
+                <h3 id="modal-title" className="text-lg font-bold truncate max-w-70">
                   Manage Reservation
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5 truncate">
@@ -573,6 +589,7 @@ const ProfilePage: React.FC = () => {
               </div>
               <button
                 onClick={() => setSelectedBooking(null)}
+                aria-label="Close modal"
                 className="text-white/70 hover:text-white text-xl p-1"
               >
                 ✕
@@ -580,7 +597,7 @@ const ProfilePage: React.FC = () => {
             </div>
 
             {/* Modal Actions Form */}
-            <form onSubmit={handleSaveBookingChange} className="p-6 space-y-5">
+            <form onSubmit={handleSaveBookingChange} className="p-6 space-y-5" aria-label="Edit Reservation Form">
               {/* DATE INPUTS */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -600,6 +617,7 @@ const ProfilePage: React.FC = () => {
                     required
                     value={editDateFrom}
                     onChange={(e) => setEditDateFrom(e.target.value)}
+                    aria-disabled={isModalLocked}
                     className={`w-full border rounded-lg p-2 text-sm ${isModalLocked ? "bg-slate-100 text-slate-400 cursor-not-allowed" : "text-slate-800 border-slate-200 focus:border-mint-green"}`}
                   />
                 </div>
@@ -620,6 +638,7 @@ const ProfilePage: React.FC = () => {
                     required
                     value={editDateTo}
                     onChange={(e) => setEditDateTo(e.target.value)}
+                    aria-disabled={isModalLocked}
                     className={`w-full border rounded-lg p-2 text-sm ${isModalLocked ? "bg-slate-100 text-slate-400 cursor-not-allowed" : "text-slate-800 border-slate-200 focus:border-mint-green"}`}
                   />
                 </div>
@@ -644,13 +663,14 @@ const ProfilePage: React.FC = () => {
                 />
               </div>
 
-              <hr className="border-slate-100 my-4" />
+              <hr className="border-slate-100 my-4" aria-hidden="true" />
 
               {/* Form Buttons */}
               <div className="flex flex-col gap-2.5">
                 <button
                   type="submit"
                   disabled={isModalProcessing}
+                  aria-busy={isModalProcessing}
                   className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-lg text-sm hover:bg-slate-800 transition-colors disabled:opacity-50"
                 >
                   {isModalProcessing ? "Saving..." : "Save Date Changes"}
@@ -659,6 +679,7 @@ const ProfilePage: React.FC = () => {
                 <button
                   type="button"
                   disabled={isModalProcessing}
+                  aria-busy={isModalProcessing}
                   onClick={handleCancelBooking}
                   className="w-full bg-red-500 text-white font-bold py-2.5 rounded-lg text-sm hover:bg-red-600 transition-colors disabled:opacity-50"
                 >

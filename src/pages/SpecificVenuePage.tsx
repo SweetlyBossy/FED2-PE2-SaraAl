@@ -71,22 +71,22 @@ const SpecificVenuePage: React.FC = () => {
   // Conditional rendering based on the loading state, error state, and whether the venue data is available. If the component is currently loading data, it displays a loading message. If there was an error during the fetch operation, it displays the error message. If the venue data was successfully fetched but is not found (e.g., if the ID is invalid), it displays a "Venue not found" message. Finally, if the venue data is successfully fetched and available, it renders the details of the venue in a structured and visually appealing layout.
   if (isLoading) {
     return (
-      <div className="text-center text-white mt-20">
+      <div className="text-center text-white mt-20" role="status" aria-label="Loading venue details">
         Loading venue details...
       </div>
     );
   }
 
   if (error) {
-    return <div className="text-center text-red-400 mt-20">{error}</div>;
+    return <div className="text-center text-red-400 mt-20" role="alert" aria-live="assertive">{error}</div>;
   }
 
   if (!venue) {
-    return <div className="text-center text-white mt-20">Venue not found.</div>;
+    return <div className="text-center text-white mt-20" role="alert">Venue not found.</div>;
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-4xl mx-auto px-4 py-12" role="main">
       <Link
         to="/venues"
         aria-label="Go back to the list of venues"
@@ -95,8 +95,8 @@ const SpecificVenuePage: React.FC = () => {
         &larr; Back to Venues
       </Link>
 
-      <div className="bg-deep-navy/40 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl">
-        <h1 className="text-4xl font-extrabold text-white mb-2">
+      <div className="bg-deep-navy/40 border border-white/10 rounded-2xl p-8 backdrop-blur-md shadow-2xl" aria-labelledby="venue-heading">
+        <h1 id="venue-heading" className="text-4xl font-extrabold text-white mb-2">
           {venue.name}
         </h1>
         <p className="text-mint-green text-xl font-semibold mb-6">
@@ -112,14 +112,14 @@ const SpecificVenuePage: React.FC = () => {
         )}
           {/* Venue Description and Amenities Section */}
         <div className="grid md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-2xl font-bold text-white mb-4">Description</h2>
+          <div aria-labelledby="description-heading">
+            <h2 id="description-heading" className="text-2xl font-bold text-white mb-4">Description</h2>
             <p className="text-white/80 leading-relaxed">{venue.description}</p>
           </div>
 
-          <div className="bg-white/5 p-6 rounded-lg">
-            <h2 className="text-xl font-bold text-white mb-4">Amenities</h2>
-            <ul className="space-y-2 text-white/90">
+          <div className="bg-white/5 p-6 rounded-lg" aria-labelledby="amenities-heading">
+            <h2 id="amenities-heading" className="text-xl font-bold text-white mb-4">Amenities</h2>
+            <ul className="space-y-2 text-white/90" aria-label="Amenities list">
               <li>{venue.meta.wifi ? "✅ WiFi" : "❌ WiFi"}</li>
               <li>{venue.meta.parking ? "✅ Parking" : "❌ Parking"}</li>
               <li>{venue.meta.breakfast ? "✅ Breakfast" : "❌ Breakfast"}</li>
@@ -135,8 +135,9 @@ const SpecificVenuePage: React.FC = () => {
         <form
           onSubmit={handleBooking}
           className="bg-white/10 p-6 rounded-lg mt-8 border border-white/20"
+          aria-labelledby="booking-heading"
         >
-          <h3 className="text-xl font-bold text-white mb-4">Book this Venue</h3>
+          <h3 id="booking-heading" className="text-xl font-bold text-white mb-4">Book this Venue</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="flex flex-col">
               <label

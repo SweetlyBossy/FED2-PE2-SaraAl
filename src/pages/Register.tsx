@@ -124,13 +124,17 @@ export default function Register() {
   return (
     // The main container for the registration page. We use Tailwind CSS classes to create a full-screen background with a centered card for the registration form. The background image is set using inline styles to ensure it covers the entire screen and is centered properly. The card itself has a glassmorphism effect with a semi-transparent background, rounded corners, and a shadow to make it stand out against the background while still fitting the overall aesthetic of the Nordic Stay theme.
     <div
+      role="main"
       className="min-h-screen flex items-center justify-center p-4 font-inter bg-cover bg-center bg-no-repeat "
       style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Glassmorphism Card Container */}
-      <div className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl">
+      <section 
+        aria-labelledby="register-heading"
+        className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl"
+      >
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">
+          <h1 id="register-heading" className="text-3xl font-bold text-white mb-2">
             Create an Account
           </h1>
           <p className="text-slate-300 text-sm">
@@ -140,13 +144,17 @@ export default function Register() {
 
         {/* Server Error Alert */}
         {serverError && (
-          <div className="mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center">
+          <div 
+            role="alert" 
+            aria-live="assertive" 
+            className="mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"
+          >
             {serverError}
           </div>
         )}
 
         {/* The Form */}
-        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <form onSubmit={handleSubmit} className="space-y-5" noValidate aria-label="Registration form">
           {/* Name Field */}
           <div>
             <label
@@ -162,10 +170,14 @@ export default function Register() {
               value={formData.name}
               onChange={handleChange}
               placeholder="Enter your name"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-400">{errors.name}</p>
+              <p id="name-error" className="mt-1 text-xs text-red-400" role="alert">
+                {errors.name}
+              </p>
             )}
           </div>
 
@@ -184,10 +196,14 @@ export default function Register() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Example@stud.noroff.no"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.email && (
-              <p className="mt-1 text-xs text-red-400">{errors.email}</p>
+              <p id="email-error" className="mt-1 text-xs text-red-400" role="alert">
+                {errors.email}
+              </p>
             )}
           </div>
 
@@ -206,10 +222,14 @@ export default function Register() {
               value={formData.password}
               onChange={handleChange}
               placeholder="••••••••"
+              aria-invalid={!!errors.password}
+              aria-describedby={errors.password ? "password-error" : undefined}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.password && (
-              <p className="mt-1 text-xs text-red-400">{errors.password}</p>
+              <p id="password-error" className="mt-1 text-xs text-red-400" role="alert">
+                {errors.password}
+              </p>
             )}
           </div>
 
@@ -228,10 +248,12 @@ export default function Register() {
               value={formData.confirmPassword}
               onChange={handleChange}
               placeholder="••••••••"
+              aria-invalid={!!errors.confirmPassword}
+              aria-describedby={errors.confirmPassword ? "confirmPassword-error" : undefined}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
             />
             {errors.confirmPassword && (
-              <p className="mt-1 text-xs text-red-400">
+              <p id="confirmPassword-error" className="mt-1 text-xs text-red-400" role="alert">
                 {errors.confirmPassword}
               </p>
             )}
@@ -242,10 +264,12 @@ export default function Register() {
             type="submit"
             variant="action"
             disabled={isLoading}
+            aria-busy={isLoading}
             className="w-full mt-6 flex justify-center items-center shadow-lg shadow-mint-green/20 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <svg
+                aria-hidden="true"
                 className="animate-spin h-5 w-5 text-black"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -276,12 +300,13 @@ export default function Register() {
           Already have an account?{" "}
           <Link
             to="/login"
+            aria-label="Log in to your account"
             className="text-mint-green hover:text-white font-semibold transition-colors"
           >
             Log In
           </Link>
         </p>
-      </div>
+      </section>
     </div>
   );
 }

@@ -24,13 +24,14 @@ const BookingConfirmationPage: React.FC = () => {
   const totalPrice = diffDays * venue.price;
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 pb-20">
+    <div className="min-h-screen bg-white text-slate-900 pb-20" role="main">
       {/* Hero Header */}
       <div
         className="h-64 w-full bg-cover bg-center relative flex items-center justify-center rounded-b-[40px] overflow-hidden"
         style={{ backgroundImage: "url('/box-filler.png')" }}
+        role="banner"
       >
-        <div className="absolute inset-0 bg-slate-900/40"></div>
+        <div className="absolute inset-0 bg-slate-900/40" aria-hidden="true"></div>
         <h1 className="relative z-10 text-4xl md:text-5xl font-extrabold text-white tracking-wide shadow-black">
           Your Adventure Checkout
         </h1>
@@ -39,13 +40,13 @@ const BookingConfirmationPage: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Confirmation & Info */}
-          <div className="lg:col-span-8 pt-4">
+          <div className="lg:col-span-8 pt-4" role="region" aria-labelledby="confirmation-heading">
             <div className="bg-white p-10 shadow-[0_0_40px_rgba(0,0,0,0.05)] border border-slate-100 rounded-lg space-y-10 relative overflow-hidden">
               {/* Decorative green accent line */}
-              <div className="absolute top-0 left-0 w-2 h-full bg-mint-green"></div>
+              <div className="absolute top-0 left-0 w-2 h-full bg-mint-green" aria-hidden="true"></div>
 
               <div>
-                <h2 className="text-3xl font-extrabold mb-2">
+                <h2 id="confirmation-heading" className="text-3xl font-extrabold mb-2">
                   Booking Confirmation
                 </h2>
                 <p className="text-lg font-semibold text-slate-800">
@@ -59,7 +60,7 @@ const BookingConfirmationPage: React.FC = () => {
                 </h3>
                 <ul className="space-y-6">
                   <li className="flex items-start">
-                    <span className="text-mint-green text-xl mr-4 mt-1">
+                    <span className="text-mint-green text-xl mr-4 mt-1" aria-hidden="true">
                       ✉️
                     </span>
                     <p className="text-slate-700 text-lg">
@@ -73,7 +74,7 @@ const BookingConfirmationPage: React.FC = () => {
                     </p>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-mint-green text-xl mr-4 mt-1">
+                    <span className="text-mint-green text-xl mr-4 mt-1" aria-hidden="true">
                       👤
                     </span>
                     <p className="text-slate-700 text-lg">
@@ -86,10 +87,10 @@ const BookingConfirmationPage: React.FC = () => {
           </div>
 
           {/* Order Summary Card */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4" role="region" aria-labelledby="summary-heading">
             <div className="bg-white rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.08)] overflow-hidden">
               <div className="p-6 text-center border-b border-slate-100">
-                <h2 className="text-2xl font-extrabold text-slate-900">
+                <h2 id="summary-heading" className="text-2xl font-extrabold text-slate-900">
                   Order Summary
                 </h2>
               </div>
@@ -148,6 +149,7 @@ const BookingConfirmationPage: React.FC = () => {
 
                 <Link
                   to="/venues"
+                  aria-label="Next Adventure"
                   className="block w-full text-center bg-mint-green text-deep-navy font-bold text-lg py-3 rounded hover:bg-emerald-400 transition-colors shadow-md"
                 >
                   Next Adventure

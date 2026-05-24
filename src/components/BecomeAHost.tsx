@@ -50,14 +50,21 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div className="bg-[#8b9ba4] border-4 border-blue-400 p-8 rounded-sm shadow-2xl max-w-lg w-full mx-auto">
-      <h2 className="text-2xl font-bold text-black text-center mb-8">
+    <div 
+      className="bg-[#8b9ba4] border-4 border-blue-400 p-8 rounded-sm shadow-2xl max-w-lg w-full mx-auto"
+      role="region"
+      aria-labelledby="become-manager-heading"
+    >
+      <h2 id="become-manager-heading" className="text-2xl font-bold text-black text-center mb-8">
         Becoming a venue manager
       </h2>
 
       <div className="flex items-start gap-4 mb-8">
         <button
           onClick={() => setIsChecked(!isChecked)}
+          role="switch"
+          aria-checked={isChecked}
+          aria-labelledby="terms-text"
           className={`w-20 h-6 rounded-full transition-colors flex items-center border-2 ${
             isChecked
               ? "bg-mint-green border-mint-green"
@@ -66,9 +73,10 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
         >
           <div
             className={`w-5 h-5 bg-white rounded-full transition-transform ${isChecked ? "translate-x-6" : "translate-x-0"}`}
+            aria-hidden="true"
           />
         </button>
-        <p className="text-black text-lg leading-snug font-medium">
+        <p id="terms-text" className="text-black text-lg leading-snug font-medium">
           I have read and accept the terms & conditions for becoming a venue
           manager.
         </p>
@@ -78,6 +86,7 @@ export const BecomeAHost: React.FC<BecomeAHostProps> = ({ onSuccess }) => {
         <button
           onClick={handleBecomeManager}
           disabled={!isChecked || isProcessing}
+          aria-busy={isProcessing}
           className="bg-[#4ade80] text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-[#3bcf71] disabled:opacity-50"
         >
           {isProcessing ? "Processing..." : "Become a venue manager"}

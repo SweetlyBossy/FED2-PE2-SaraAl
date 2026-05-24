@@ -141,14 +141,14 @@ const VenuesPage: React.FC = () => {
       className="min-h-screen bg-cover bg-center bg-fixed relative"
       style={{ backgroundImage: "url('/box-filler.png')" }}
     >
-      <div className="absolute inset-0 bg-deep-navy/60 z-0 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-deep-navy/60 z-0 pointer-events-none" aria-hidden="true"></div>
 
       <div className="relative z-10">
         <Header />
 
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12" aria-labelledby="venues-heading">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 relative">
-            <h1 className="text-white text-4xl md:text-5xl font-extrabold tracking-wide w-full text-center absolute left-0 pointer-events-none">
+            <h1 id="venues-heading" className="text-white text-4xl md:text-5xl font-extrabold tracking-wide w-full text-center absolute left-0 pointer-events-none">
               VENUES
             </h1>
 
@@ -159,6 +159,7 @@ const VenuesPage: React.FC = () => {
                   type="text"
                   placeholder="Search..."
                   value={searchQuery}
+                  aria-label="Search venues"
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setCurrentPage(1); // Reset page on search
@@ -170,6 +171,7 @@ const VenuesPage: React.FC = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -184,13 +186,15 @@ const VenuesPage: React.FC = () => {
               <div className="relative">
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
+                  aria-expanded={isFilterOpen}
+                  aria-controls="filter-panel"
                   className="w-full md:w-64 bg-white/25 border border-white/50 text-white font-semibold rounded-full py-1.5 px-4 hover:bg-white/40 transition-colors backdrop-blur-sm"
                 >
                   Filter {isFilterOpen ? "▲" : "▼"}
                 </button>
 
                 {isFilterOpen && (
-                  <div className="absolute right-0 top-full mt-2 w-72 md:w-80 bg-deep-navy/95 border border-white/20 rounded-lg p-5 shadow-xl backdrop-blur-md text-white z-50 max-h-[80vh] overflow-y-auto custom-scrollbar">
+                  <div id="filter-panel" className="absolute right-0 top-full mt-2 w-72 md:w-80 bg-deep-navy/95 border border-white/20 rounded-lg p-5 shadow-xl backdrop-blur-md text-white z-50 max-h-[80vh] overflow-y-auto custom-scrollbar">
                     <h3 className="font-bold mb-4 border-b border-white/20 pb-2">
                       Filter Venues
                     </h3>
@@ -198,10 +202,11 @@ const VenuesPage: React.FC = () => {
                     {/* Location Filters */}
                     <div className="mb-4 space-y-3 border-b border-white/20 pb-4">
                       <div>
-                        <label className="block text-sm font-semibold mb-1">
+                        <label htmlFor="filter-country" className="block text-sm font-semibold mb-1">
                           Country
                         </label>
                         <input
+                          id="filter-country"
                           type="text"
                           name="country"
                           placeholder="e.g. Norway"
@@ -211,10 +216,11 @@ const VenuesPage: React.FC = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-1">
+                        <label htmlFor="filter-city" className="block text-sm font-semibold mb-1">
                           City
                         </label>
                         <input
+                          id="filter-city"
                           type="text"
                           name="city"
                           placeholder="e.g. Tromsø"
@@ -226,10 +232,11 @@ const VenuesPage: React.FC = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-semibold mb-1">
+                      <label htmlFor="filter-maxPrice" className="block text-sm font-semibold mb-1">
                         Max Price: ${filters.maxPrice}
                       </label>
                       <input
+                        id="filter-maxPrice"
                         type="range"
                         name="maxPrice"
                         min="0"
@@ -242,10 +249,11 @@ const VenuesPage: React.FC = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-semibold mb-1">
+                      <label htmlFor="filter-maxGuests" className="block text-sm font-semibold mb-1">
                         Min Guests: {filters.maxGuests}
                       </label>
                       <input
+                        id="filter-maxGuests"
                         type="range"
                         name="maxGuests"
                         min="1"
@@ -257,10 +265,11 @@ const VenuesPage: React.FC = () => {
                     </div>
 
                     <div className="mb-4">
-                      <label className="block text-sm font-semibold mb-1">
+                      <label htmlFor="filter-minRating" className="block text-sm font-semibold mb-1">
                         Min Rating: {filters.minRating}★
                       </label>
                       <input
+                        id="filter-minRating"
                         type="range"
                         name="minRating"
                         min="0"
@@ -273,8 +282,9 @@ const VenuesPage: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-sm mt-4">
-                      <label className="flex items-center gap-2 cursor-pointer">
+                      <label htmlFor="filter-wifi" className="flex items-center gap-2 cursor-pointer">
                         <input
+                          id="filter-wifi"
                           type="checkbox"
                           name="wifi"
                           checked={filters.wifi}
@@ -283,8 +293,9 @@ const VenuesPage: React.FC = () => {
                         />{" "}
                         WiFi
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
+                      <label htmlFor="filter-parking" className="flex items-center gap-2 cursor-pointer">
                         <input
+                          id="filter-parking"
                           type="checkbox"
                           name="parking"
                           checked={filters.parking}
@@ -293,8 +304,9 @@ const VenuesPage: React.FC = () => {
                         />{" "}
                         Parking
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
+                      <label htmlFor="filter-breakfast" className="flex items-center gap-2 cursor-pointer">
                         <input
+                          id="filter-breakfast"
                           type="checkbox"
                           name="breakfast"
                           checked={filters.breakfast}
@@ -303,8 +315,9 @@ const VenuesPage: React.FC = () => {
                         />{" "}
                         Breakfast
                       </label>
-                      <label className="flex items-center gap-2 cursor-pointer">
+                      <label htmlFor="filter-pets" className="flex items-center gap-2 cursor-pointer">
                         <input
+                          id="filter-pets"
                           type="checkbox"
                           name="pets"
                           checked={filters.pets}
@@ -321,24 +334,25 @@ const VenuesPage: React.FC = () => {
           </div>
 
           {isLoading ? (
-            <div className="flex justify-center items-center h-64">
+            <div className="flex justify-center items-center h-64" role="status" aria-label="Loading venues">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-mint-green"></div>
             </div>
           ) : error ? (
-            <div className="text-center text-red-400 bg-deep-navy/80 p-4 rounded-lg">
+            <div className="text-center text-red-400 bg-deep-navy/80 p-4 rounded-lg" role="alert" aria-live="assertive">
               {error}
             </div>
           ) : currentVenues.length === 0 ? (
-            <div className="text-center text-white text-xl mt-20">
+            <div className="text-center text-white text-xl mt-20" role="status">
               No venues found matching your criteria.
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" role="list" aria-label="Venues list">
                 {currentVenues.map((venue) => (
                   <Link
                     to={`/venues/${venue.id}`}
                     key={venue.id}
+                    role="listitem"
                     className="bg-deep-navy/25 border border-white/10 rounded-lg p-4 flex flex-col backdrop-blur-sm hover:bg-deep-navy/35 transition-all duration-300 shadow-lg"
                   >
                     <h2 className="text-white font-bold text-lg mb-1 truncate">
@@ -368,7 +382,7 @@ const VenuesPage: React.FC = () => {
                           }}
                         />
                       ) : (
-                        <div className="w-full h-full bg-deep-navy/50 flex items-center justify-center text-white/50 text-sm">
+                        <div role="img" aria-label="No image available" className="w-full h-full bg-deep-navy/50 flex items-center justify-center text-white/50 text-sm">
                           No Image
                         </div>
                       )}
@@ -391,17 +405,18 @@ const VenuesPage: React.FC = () => {
               </div>
 
               {totalPages > 1 && (
-                <div className="flex justify-center items-center gap-6 mt-12 mb-8">
+                <div className="flex justify-center items-center gap-6 mt-12 mb-8" role="navigation" aria-label="Pagination">
                   <button
                     onClick={() =>
                       setCurrentPage((prev) => Math.max(prev - 1, 1))
                     }
                     disabled={currentPage === 1}
+                    aria-label="Previous page"
                     className="w-10 h-10 rounded-full bg-white/20 text-white font-bold text-xl flex items-center justify-center hover:bg-mint-green disabled:opacity-30 transition-all shadow-lg backdrop-blur-sm"
                   >
                     &lt;
                   </button>
-                  <span className="text-white font-semibold tracking-wide">
+                  <span className="text-white font-semibold tracking-wide" aria-live="polite">
                     Page {currentPage} of {totalPages}
                   </span>
                   <button
@@ -409,6 +424,7 @@ const VenuesPage: React.FC = () => {
                       setCurrentPage((prev) => Math.min(prev + 1, totalPages))
                     }
                     disabled={currentPage === totalPages}
+                    aria-label="Next page"
                     className="w-10 h-10 rounded-full bg-white/20 text-white font-bold text-xl flex items-center justify-center hover:bg-mint-green disabled:opacity-30 transition-all shadow-lg backdrop-blur-sm"
                   >
                     &gt;

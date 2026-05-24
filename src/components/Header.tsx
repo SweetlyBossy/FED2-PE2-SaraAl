@@ -42,10 +42,10 @@ export default function Header() {
   return (
     // Use 'fixed' and 'z-50' to make sure the header always stays at the top of the screen,
     // floating above the content as the user scrolls.
-    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 transition-all">
-      <nav className="flex items-center justify-between px-6 max-w-7xl mx-auto w-full">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10 transition-all" role="banner">
+      <nav className="flex items-center justify-between px-6 max-w-7xl mx-auto w-full" aria-label="Main navigation">
         {/* Logo Section */}
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2" aria-label="Nordic Stay Home">
           <img src="/logo.png" alt="Nordic Stay Logo" className="w-40 h-auto" />
         </Link>
 
@@ -74,6 +74,8 @@ export default function Header() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 aria-expanded={isDropdownOpen}
                 aria-haspopup="true"
+                aria-controls="profile-menu"
+                aria-label="User profile menu"
                 className="flex items-center gap-2 text-white hover:text-mint-green transition-colors focus:outline-none"
               >
                 {/* Fallback avatar if the user doesn't have one */}
@@ -84,7 +86,7 @@ export default function Header() {
                     className="w-10 h-10 rounded-full object-cover border-2 border-transparent hover:border-mint-green transition-all"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border-2 border-transparent hover:border-mint-green transition-all">
+                  <div className="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center border-2 border-transparent hover:border-mint-green transition-all" aria-hidden="true">
                     👤
                   </div>
                 )}
@@ -98,8 +100,8 @@ export default function Header() {
 
               {/* The Dropdown Panel */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-3 w-56 bg-slate-800 border border-white/10 rounded-lg shadow-xl py-2 flex flex-col z-50">
-                  <div className="px-4 py-2 border-b border-white/10 mb-2">
+                <div id="profile-menu" role="menu" className="absolute right-0 mt-3 w-56 bg-slate-800 border border-white/10 rounded-lg shadow-xl py-2 flex flex-col z-50">
+                  <div className="px-4 py-2 border-b border-white/10 mb-2" role="none">
                     <p className="text-sm text-white font-semibold truncate">
                       {user?.name}
                     </p>
@@ -110,6 +112,7 @@ export default function Header() {
 
                   <Link
                     to="/profile"
+                    role="menuitem"
                     onClick={() => setIsDropdownOpen(false)}
                     className="px-4 py-2 text-sm text-white hover:bg-slate-700 transition-colors text-left"
                   >
@@ -120,6 +123,7 @@ export default function Header() {
                   {venueManager ? (
                     <Link
                       to="/dashboard"
+                      role="menuitem"
                       onClick={() => setIsDropdownOpen(false)}
                       className="px-4 py-2 text-sm text-mint-green hover:bg-slate-700 transition-colors text-left font-medium"
                     >
@@ -128,6 +132,7 @@ export default function Header() {
                   ) : (
                     <Link
                       to="/become-host"
+                      role="menuitem"
                       onClick={() => setIsDropdownOpen(false)}
                       className="px-4 py-2 text-sm text-white hover:bg-slate-700 transition-colors text-left"
                     >
@@ -135,13 +140,14 @@ export default function Header() {
                     </Link>
                   )}
 
-                  <hr className="border-white/10 my-2" />
+                  <hr className="border-white/10 my-2" aria-hidden="true" />
 
                   <button
                     onClick={() => {
                       logout();
                       setIsDropdownOpen(false);
                     }}
+                    role="menuitem"
                     className="px-4 py-2 text-sm text-red-400 hover:bg-slate-700 transition-colors text-left w-full"
                   >
                     Sign Out

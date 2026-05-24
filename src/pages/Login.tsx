@@ -82,13 +82,17 @@ export default function Login() {
 
   return (
     <div
+      role="main"
       className="min-h-screen flex items-center justify-center p-4 font-inter bg-cover bg-center bg-no-repeat "
       style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Glassmorphism Card Container */}
-      <section className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center">
+      <section 
+        aria-labelledby="login-heading"
+        className="w-full max-w-md bg-[rgba(177,197,211,0.15)] backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-2xl flex flex-col items-center text-center"
+      >
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+          <h1 id="login-heading" className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
           <p className="text-slate-300 text-sm">
             Log in to your Nordic Stay account
           </p>
@@ -96,7 +100,11 @@ export default function Login() {
 
         {/* Server Error Alert */}
         {serverError && (
-          <div className="w-full mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center">
+          <div 
+            role="alert" 
+            aria-live="assertive" 
+            className="w-full mb-6 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center"
+          >
             {serverError}
           </div>
         )}
@@ -106,6 +114,7 @@ export default function Login() {
           onSubmit={handleSubmit}
           className="w-full flex flex-col gap-5"
           noValidate
+          aria-label="Login form"
         >
           {/* Email Input */}
           <div className="text-left">
@@ -116,6 +125,7 @@ export default function Login() {
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
               required
+              aria-label="Email Address"
             />
           </div>
 
@@ -128,6 +138,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               className="w-full bg-white/10 border border-white/20 text-white placeholder-white/40 rounded-lg px-4 py-3 outline-none focus:border-mint-green focus:ring-1 focus:ring-mint-green transition-colors"
               required
+              aria-label="Password"
             />
           </div>
 
@@ -136,10 +147,12 @@ export default function Login() {
             type="submit"
             variant="action"
             disabled={isLoading}
+            aria-busy={isLoading}
             className="w-full mt-2 flex justify-center items-center shadow-lg shadow-mint-green/20 disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isLoading ? (
               <svg
+                aria-hidden="true"
                 className="animate-spin h-5 w-5 text-black"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -171,6 +184,7 @@ export default function Login() {
           <Link
             to="/register"
             className="text-neon-mint hover:text-white font-semibold transition-colors"
+            aria-label="Sign up for a new account"
           >
             Sign up
           </Link>
